@@ -24,14 +24,14 @@ public class LessonController {
     @GetMapping(value = "/all", produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
-    ResponseEntity<Collection<Lesson>> getAllOffers() {
+    ResponseEntity<Collection<Lesson>> getAllLessons() {
         return ResponseEntity.ok(lessonService.getAll());
     }
 
     @PostMapping(produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
-    ResponseEntity<Lesson> getAllOffers(@RequestBody Lesson lesson) {
+    ResponseEntity<Lesson> addLesson(@RequestBody Lesson lesson) {
         return ResponseEntity.ok(lessonService.add(lesson));
     }
 }
