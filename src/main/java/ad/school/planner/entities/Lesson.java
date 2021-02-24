@@ -3,12 +3,11 @@ package ad.school.planner.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -40,4 +39,11 @@ public class Lesson {
 
     @ManyToMany
     private List<Student> students;
+
+    public void addStudent(Student student) {
+        if (students == null) {
+            students = new LinkedList<>();
+        }
+        students.add(student);
+    }
 }

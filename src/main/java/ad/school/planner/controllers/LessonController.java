@@ -31,7 +31,7 @@ public class LessonController {
     @PostMapping(produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
-    ResponseEntity<Lesson> addLesson(@RequestBody Lesson lesson) {
-        return ResponseEntity.ok(lessonService.add(lesson));
+    ResponseEntity<Lesson> addLesson(@RequestBody Lesson lesson, @RequestParam Integer studentId) {
+        return ResponseEntity.ok(lessonService.add(lesson, studentId));
     }
 }
