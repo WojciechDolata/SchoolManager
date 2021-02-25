@@ -1,6 +1,7 @@
 package ad.school.planner.controllers;
 
 import ad.school.planner.entities.Lesson;
+import ad.school.planner.request.LessonRequest;
 import ad.school.planner.services.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class LessonController {
     @PostMapping(produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
-    ResponseEntity<Lesson> addLesson(@RequestBody Lesson lesson, @RequestParam Integer studentId) {
+    ResponseEntity<Lesson> addLesson(@RequestBody LessonRequest lesson, @RequestParam Integer studentId) {
         return ResponseEntity.ok(lessonService.add(lesson, studentId));
     }
 }

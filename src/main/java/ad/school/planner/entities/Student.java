@@ -1,9 +1,7 @@
 package ad.school.planner.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import ad.school.planner.request.StudentRequest;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class Student {
 
@@ -46,4 +45,12 @@ public class Student {
 
     @ManyToMany
     private List<Lesson> lessons;
+
+    public void update(StudentRequest updatedStudent) {
+        setPhoneNumber(updatedStudent.phoneNumber);
+        setFirstName(updatedStudent.firstName);
+        setLastName(updatedStudent.lastName);
+        setEmail(updatedStudent.email);
+        setDescription(updatedStudent.description);
+    }
 }

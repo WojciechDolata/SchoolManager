@@ -1,6 +1,7 @@
 package ad.school.planner.controllers;
 
 import ad.school.planner.entities.Student;
+import ad.school.planner.request.StudentRequest;
 import ad.school.planner.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,13 @@ public class StudentController {
     }
 
     @PostMapping(produces = {"application/json"})
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> addStudent(@RequestBody StudentRequest student) {
         return ResponseEntity.ok(studentService.add(student));
+    }
+
+    @PutMapping(value = "/{id}", produces = {"application/json"})
+    public ResponseEntity<Student> updateStudent(@PathVariable("id") Integer id,
+                                                 @RequestBody StudentRequest updatedStudent) {
+        return ResponseEntity.ok(studentService.update(id, updatedStudent));
     }
 }
