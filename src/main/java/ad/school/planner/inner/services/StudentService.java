@@ -1,8 +1,8 @@
-package ad.school.planner.services;
+package ad.school.planner.inner.services;
 
-import ad.school.planner.entities.Student;
-import ad.school.planner.repositories.StudentRepository;
-import ad.school.planner.request.StudentRequest;
+import ad.school.planner.inner.entities.Student;
+import ad.school.planner.inner.repositories.StudentRepository;
+import ad.school.planner.inner.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,20 +23,13 @@ public class StudentService {
     }
 
     public Student add(StudentRequest studentRequest) {
-        var student = Student.builder()
-                .description(studentRequest.description)
-                .email(studentRequest.email)
-                .firstName(studentRequest.firstName)
-                .lastName(studentRequest.lastName)
-                .phoneNumber(studentRequest.phoneNumber)
-                .build();
+        var student = Student.ofRequest(studentRequest);
         return studentRepository.save(student);
     }
 
     public Student update(Integer id, StudentRequest updatedStudent) {
         var student = studentRepository.findStudentById(id);
         student.update(updatedStudent);
-        studentRepository.save(student);
-        return student;
+        return studentRepository.save(student);
     }
 }

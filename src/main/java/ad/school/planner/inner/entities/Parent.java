@@ -1,13 +1,18 @@
-package ad.school.planner.entities;
+package ad.school.planner.inner.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -26,20 +31,34 @@ public class Parent {
     private LocalDateTime creationTimestamp;
 
     @Column
-    @NonNull
     private String firstName;
 
     @Column
     private String lastName;
 
     @Column
-    private String description;
+    private String city;
 
     @Column
     private String phoneNumber;
 
     @Column
     private String email;
+
+    @Column
+    private String facebook;
+
+    @Column
+    private String whatsapp;
+
+    @Column
+    private Date birthDate;
+
+    @Column
+    private Date nameDay;
+
+    @Column
+    private String description;
 
     @OneToMany
     private List<Student> children;
