@@ -41,7 +41,7 @@ public class School {
     @NonNull
     private String city;
 
-    @Column
+    @Column(name = "school_level")
     @NonNull
     private String level;
 
