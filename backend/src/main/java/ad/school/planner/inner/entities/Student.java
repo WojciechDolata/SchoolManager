@@ -7,16 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -27,8 +28,9 @@ public class Student {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     @Column
     @CreationTimestamp
@@ -78,21 +80,22 @@ public class Student {
     @ManyToMany
     private List<Lesson> lessons;
 
-    public static Student ofRequest(StudentRequest request) {
-        return Student.builder()
-                .nick(request.nick)
-                .firstName(request.firstName)
-                .lastName(request.lastName)
-                .city(request.city)
-                .phoneNumber(request.phoneNumber)
-                .email(request.email)
-                .facebook(request.facebook)
-                .whatsapp(request.whatsapp)
-                .birthDate(request.birthDate)
-                .nameDay(request.nameDay)
-                .since(request.since)
-                .description(request.description)
-                .build();
+    public static class StudentBuilder {
+        public Student.StudentBuilder ofRequest(StudentRequest request) {
+            nick = request.nick;
+            firstName = request.firstName;
+            lastName = request.lastName;
+            city = request.city;
+            phoneNumber = request.phoneNumber;
+            email = request.email;
+            facebook = request.facebook;
+            whatsapp = request.whatsapp;
+            birthDate = request.birthDate;
+            nameDay = request.nameDay;
+            since = request.since;
+            description = request.description;
+            return this;
+        }
     }
 
     public void update(StudentRequest updatedStudent) {

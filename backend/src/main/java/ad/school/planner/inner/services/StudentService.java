@@ -23,7 +23,9 @@ public class StudentService {
     }
 
     public Student add(StudentRequest studentRequest) {
-        var student = Student.ofRequest(studentRequest);
+        var student = Student.builder()
+                .ofRequest(studentRequest)
+                .build();
         return studentRepository.save(student);
     }
 
