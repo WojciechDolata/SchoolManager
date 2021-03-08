@@ -36,7 +36,7 @@ public class School {
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
 
-    @Column
+    @Column(unique = true)
     @NonNull
     private String name;
 
