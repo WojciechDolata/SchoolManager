@@ -1,14 +1,13 @@
-package ad.school.planner.inner.entities;
+package ad.school.planner.inner.parent;
 
-import ad.school.planner.inner.enums.EducationLevel;
-import ad.school.planner.inner.request.SchoolRequest;
+import ad.school.planner.inner.student.Student;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,15 +15,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class School {
+public class Parent {
 
     @Id
     @Column
@@ -37,30 +37,35 @@ public class School {
     private LocalDateTime creationTimestamp;
 
     @Column
-    @NonNull
-    private String name;
+    private String firstName;
 
     @Column
-    private String street;
+    private String lastName;
 
     @Column
-    @NonNull
     private String city;
 
-    @Column(name = "school_level")
-    @NonNull
-    private EducationLevel level;
+    @Column
+    private String phoneNumber;
+
+    @Column
+    private String email;
+
+    @Column
+    private String facebook;
+
+    @Column
+    private String whatsapp;
+
+    @Column
+    private Date birthDate;
+
+    @Column
+    private Date nameDay;
+
+    @Column
+    private String description;
 
     @OneToMany
-    private List<EducationYear> educationYears;
-
-    public static class SchoolBuilder {
-        public School.SchoolBuilder ofRequest(SchoolRequest request) {
-            name = request.name;
-            city = request.city;
-            level = request.level;
-            street = request.street;
-            return this;
-        }
-    }
+    private List<Student> children;
 }

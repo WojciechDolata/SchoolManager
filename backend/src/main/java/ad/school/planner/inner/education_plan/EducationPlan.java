@@ -1,6 +1,8 @@
-package ad.school.planner.inner.entities;
+package ad.school.planner.inner.education_plan;
 
-import ad.school.planner.inner.request.SubjectRequest;
+import ad.school.planner.inner.education_year.EducationYear;
+import ad.school.planner.inner.subject.Subject;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,15 +15,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Subject {
+public class EducationPlan {
     @Id
     @Column
     @GeneratedValue(generator = "uuid")
@@ -34,12 +37,11 @@ public class Subject {
 
     @Column
     @NonNull
-    private String name;
+    private String topic;
 
-    public static class SubjectBuilder {
-        public Subject.SubjectBuilder ofRequest(SubjectRequest request) {
-            name = request.name;
-            return this;
-        }
-    }
+    @ManyToOne
+    private EducationYear educationYear;
+
+    @ManyToOne
+    private Subject subject;
 }

@@ -1,6 +1,6 @@
-package ad.school.planner.inner.enums;
+package ad.school.planner.inner.school;
 
-public enum EducationLevel {
+enum EducationLevel {
     LICEUM("Liceum"),
     SZKOLA_PODSTAWOWA("Szkoła podstawowa"),
     STUDIA("Studia");

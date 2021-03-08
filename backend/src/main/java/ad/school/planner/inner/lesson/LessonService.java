@@ -1,7 +1,5 @@
-package ad.school.planner.inner.services;
+package ad.school.planner.inner.lesson;
 
-import ad.school.planner.inner.entities.Lesson;
-import ad.school.planner.inner.repositories.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

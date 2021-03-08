@@ -1,6 +1,9 @@
-package ad.school.planner.inner.entities;
+package ad.school.planner.inner.lesson;
 
+import ad.school.planner.inner.student.Student;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,8 +20,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Lesson {
 
@@ -47,7 +51,7 @@ public class Lesson {
     @ManyToMany
     private List<Student> students;
 
-    public void addStudent(Student student) {
+    void addStudent(Student student) {
         if (students == null) {
             students = new LinkedList<>();
         }

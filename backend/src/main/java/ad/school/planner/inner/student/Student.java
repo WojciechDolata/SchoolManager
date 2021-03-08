@@ -1,6 +1,8 @@
-package ad.school.planner.inner.entities;
+package ad.school.planner.inner.student;
 
-import ad.school.planner.inner.request.StudentRequest;
+import ad.school.planner.inner.lesson.Lesson;
+import ad.school.planner.inner.parent.Parent;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,9 +22,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Builder(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Student {
 
@@ -80,8 +82,8 @@ public class Student {
     @ManyToMany
     private List<Lesson> lessons;
 
-    public static class StudentBuilder {
-        public Student.StudentBuilder ofRequest(StudentRequest request) {
+    static class StudentBuilder {
+        Student.StudentBuilder ofRequest(StudentRequest request) {
             nick = request.nick;
             firstName = request.firstName;
             lastName = request.lastName;
@@ -98,7 +100,7 @@ public class Student {
         }
     }
 
-    public void update(StudentRequest updatedStudent) {
+    void update(StudentRequest updatedStudent) {
         if (updatedStudent.nick != null)
             setNick(updatedStudent.nick);
         if (updatedStudent.firstName != null)

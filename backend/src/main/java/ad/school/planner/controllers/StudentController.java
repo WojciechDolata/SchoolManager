@@ -1,8 +1,8 @@
 package ad.school.planner.controllers;
 
 import ad.school.planner.inner.PlannerFacade;
-import ad.school.planner.inner.entities.Student;
-import ad.school.planner.inner.request.StudentRequest;
+import ad.school.planner.inner.student.Student;
+import ad.school.planner.inner.student.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/student")
@@ -37,7 +38,7 @@ public class StudentController {
     }
 
     @PutMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<Student> updateStudent(@PathVariable("id") Integer id,
+    public ResponseEntity<Student> updateStudent(@PathVariable("id") UUID id,
                                                  @RequestBody StudentRequest updatedStudent) {
         return ResponseEntity.ok(plannerFacade.updateStudent(id, updatedStudent));
     }

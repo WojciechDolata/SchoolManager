@@ -1,6 +1,9 @@
-package ad.school.planner.inner.entities;
+package ad.school.planner.inner.education_year;
 
-import ad.school.planner.inner.request.EducationYearRequest;
+import ad.school.planner.inner.education_plan.EducationPlan;
+import ad.school.planner.inner.school.School;
+import ad.school.planner.inner.student.Student;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,9 +23,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class EducationYear {
     @Id
@@ -54,8 +57,8 @@ public class EducationYear {
     @OneToMany
     private List<EducationPlan> educationPlans;
 
-    public static class EducationYearBuilder {
-        public EducationYearBuilder ofRequest(EducationYearRequest request) {
+    static class EducationYearBuilder {
+        EducationYearBuilder ofRequest(EducationYearRequest request) {
             schoolYear = request.schoolYear;
             description = request.description;
             classNumber = request.classNumber;

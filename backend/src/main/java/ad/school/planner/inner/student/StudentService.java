@@ -1,12 +1,10 @@
-package ad.school.planner.inner.services;
+package ad.school.planner.inner.student;
 
-import ad.school.planner.inner.entities.Student;
-import ad.school.planner.inner.repositories.StudentRepository;
-import ad.school.planner.inner.request.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Service
 public class StudentService {
@@ -29,7 +27,7 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student update(Integer id, StudentRequest updatedStudent) {
+    public Student update(UUID id, StudentRequest updatedStudent) {
         var student = studentRepository.findStudentById(id);
         student.update(updatedStudent);
         return studentRepository.save(student);
