@@ -36,6 +36,10 @@ public class StudentAPI {
         return studentService.getAll();
     }
 
+    public Collection<Student> getStudentBy(String queryString) {
+        return studentService.getBy(queryString);
+    }
+
     public Student updateStudent(UUID id, StudentRequest updatedStudent) {
         return studentService.update(id, updatedStudent);
     }

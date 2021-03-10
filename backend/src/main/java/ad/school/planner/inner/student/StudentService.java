@@ -25,6 +25,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
+    public Collection<Student> getBy(String queryString) {
+        return studentRepository.findAllBy(queryString);
+    }
+
     public Student add(StudentRequest studentRequest) {
         var student = Student.builder()
                 .ofRequest(studentRequest)

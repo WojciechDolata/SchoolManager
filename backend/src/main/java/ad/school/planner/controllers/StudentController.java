@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.websocket.server.PathParam;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,11 @@ public class StudentController {
     @GetMapping(value = "/all", produces = {"application/json"})
     public ResponseEntity<Collection<Student>> getAllStudents() {
         return ResponseEntity.ok(studentAPI.showAllStudents());
+    }
+
+    @GetMapping(produces = {"application/json"})
+    public ResponseEntity<Collection<Student>> addStudent(@PathParam(value = "queryString") String queryString) {
+        return ResponseEntity.ok(studentAPI.getStudentBy(queryString));
     }
 
     @PostMapping(produces = {"application/json"})
