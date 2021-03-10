@@ -1,5 +1,8 @@
 package ad.school.planner.inner;
 
+import ad.school.planner.inner.education_year.EducationYear;
+import ad.school.planner.inner.education_year.EducationYearRequest;
+import ad.school.planner.inner.education_year.EducationYearService;
 import ad.school.planner.inner.lesson.LessonService;
 import ad.school.planner.inner.school.School;
 import ad.school.planner.inner.school.SchoolRequest;
@@ -10,6 +13,7 @@ import ad.school.planner.inner.student.StudentService;
 import ad.school.planner.inner.subject.Subject;
 import ad.school.planner.inner.subject.SubjectRequest;
 import ad.school.planner.inner.subject.SubjectService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,19 +21,13 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PlannerFacade {
     private final StudentService studentService;
     private final SchoolService schoolService;
     private final LessonService lessonService;
     private final SubjectService subjectService;
-
-    @Autowired
-    public PlannerFacade(StudentService studentService, SchoolService schoolService, LessonService lessonService, SubjectService subjectService) {
-        this.studentService = studentService;
-        this.schoolService = schoolService;
-        this.lessonService = lessonService;
-        this.subjectService = subjectService;
-    }
+    private final EducationYearService educationYearService;
 
     public Collection<Student> showAllStudents() {
         return studentService.getAll();
@@ -49,5 +47,11 @@ public class PlannerFacade {
 
     public Subject addSubject(SubjectRequest request) {
         return subjectService.add(request);
+    }
+
+    public EducationYear addEducationYear(EducationYearRequest request) {
+        var student = studentService.getById(request.studentId).orElseThrow();
+        var school = schoolService.getById(request.schoolId).orElseThrow();
+        return educationYearService.add(request, school, student);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,6 +21,10 @@ public class StudentService {
         return (Collection<Student>) studentRepository.findAll();
     }
 
+    public Optional<Student> getById(UUID id) {
+        return studentRepository.findById(id);
+    }
+
     public Student add(StudentRequest studentRequest) {
         var student = Student.builder()
                 .ofRequest(studentRequest)
@@ -27,9 +32,9 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student update(UUID id, StudentRequest updatedStudent) {
-        var student = studentRepository.findStudentById(id);
-        student.update(updatedStudent);
+    public Student update(UUID id, StudentRequest studentUpdateRequest) {
+        var student = studentRepository.findById(id).orElseThrow();
+        student.update(studentUpdateRequest);
         return studentRepository.save(student);
     }
 }

@@ -3,6 +3,9 @@ package ad.school.planner.inner.school;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class SchoolService {
 
@@ -19,5 +22,9 @@ public class SchoolService {
                         .ofRequest(request)
                         .build()
         );
+    }
+
+    public Optional<School> getById(UUID id) {
+        return repository.findById(id);
     }
 }
