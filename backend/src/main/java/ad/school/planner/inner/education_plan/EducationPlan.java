@@ -44,4 +44,11 @@ public class EducationPlan {
 
     @ManyToOne
     private Subject subject;
+
+    static class EducationPlanBuilder {
+        EducationPlan.EducationPlanBuilder ofRequest(EducationPlanRequest request) {
+            topic = request.topic;
+            return this;
+        }
+    }
 }

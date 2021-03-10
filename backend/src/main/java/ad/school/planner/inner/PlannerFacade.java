@@ -1,5 +1,8 @@
 package ad.school.planner.inner;
 
+import ad.school.planner.inner.education_plan.EducationPlan;
+import ad.school.planner.inner.education_plan.EducationPlanRequest;
+import ad.school.planner.inner.education_plan.EducationPlanService;
 import ad.school.planner.inner.education_year.EducationYear;
 import ad.school.planner.inner.education_year.EducationYearRequest;
 import ad.school.planner.inner.education_year.EducationYearService;
@@ -28,6 +31,7 @@ public class PlannerFacade {
     private final LessonService lessonService;
     private final SubjectService subjectService;
     private final EducationYearService educationYearService;
+    private final EducationPlanService educationPlanService;
 
     public Collection<Student> showAllStudents() {
         return studentService.getAll();
@@ -53,5 +57,11 @@ public class PlannerFacade {
         var student = studentService.getById(request.studentId).orElseThrow();
         var school = schoolService.getById(request.schoolId).orElseThrow();
         return educationYearService.add(request, school, student);
+    }
+
+    public EducationPlan addEducationPlan(EducationPlanRequest request) {
+        var educationYear = educationYearService.getById(request.educationYearId).orElseThrow();
+        var subject = subjectService.getById(request.subjectId).orElseThrow();
+        return educationPlanService.add(request, educationYear, subject);
     }
 }

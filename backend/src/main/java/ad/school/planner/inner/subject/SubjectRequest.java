@@ -1,5 +1,8 @@
 package ad.school.planner.inner.subject;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class SubjectRequest {
-    String name;
+    public final String name;
 }
