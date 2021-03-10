@@ -3,6 +3,7 @@ package ad.school.planner.inner.education_year;
 import ad.school.planner.inner.education_plan.EducationPlan;
 import ad.school.planner.inner.school.School;
 import ad.school.planner.inner.student.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +13,10 @@ import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -52,9 +55,12 @@ public class EducationYear {
     private School school;
 
     @ManyToOne
+    @JsonIgnore
     private Student student;
 
-    @OneToMany
+    @OneToMany(mappedBy = "educationYear",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EducationPlan> educationPlans;
 
     static class EducationYearBuilder {

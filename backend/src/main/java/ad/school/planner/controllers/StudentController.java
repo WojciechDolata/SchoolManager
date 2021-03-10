@@ -1,6 +1,8 @@
 package ad.school.planner.controllers;
 
 import ad.school.planner.inner.PlannerFacade;
+import ad.school.planner.inner.parent.Parent;
+import ad.school.planner.inner.parent.ParentRequest;
 import ad.school.planner.inner.student.Student;
 import ad.school.planner.inner.student.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,10 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@PathVariable("id") UUID id,
                                                  @RequestBody StudentRequest updatedStudent) {
         return ResponseEntity.ok(plannerFacade.updateStudent(id, updatedStudent));
+    }
+
+    @PostMapping(value = "/parent", produces = {"application/json"})
+    public ResponseEntity<Parent> addParent(@RequestBody ParentRequest request) {
+        return ResponseEntity.ok(plannerFacade.addParent(request));
     }
 }

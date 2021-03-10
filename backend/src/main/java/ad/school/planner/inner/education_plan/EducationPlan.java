@@ -2,6 +2,7 @@ package ad.school.planner.inner.education_plan;
 
 import ad.school.planner.inner.education_year.EducationYear;
 import ad.school.planner.inner.subject.Subject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,7 @@ public class EducationPlan {
     private String topic;
 
     @ManyToOne
+    @JsonIgnore
     private EducationYear educationYear;
 
     @ManyToOne

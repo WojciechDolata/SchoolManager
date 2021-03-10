@@ -1,6 +1,5 @@
 package ad.school.planner.inner.school;
 
-import ad.school.planner.inner.education_year.EducationYear;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -50,9 +47,6 @@ public class School {
     @Column(name = "school_level")
     @NonNull
     private EducationLevel level;
-
-    @OneToMany
-    private List<EducationYear> educationYears;
 
     static class SchoolBuilder {
         School.SchoolBuilder ofRequest(SchoolRequest request) {

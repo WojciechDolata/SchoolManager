@@ -1,6 +1,7 @@
 package ad.school.planner.inner.parent;
 
 import ad.school.planner.inner.student.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +10,15 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +71,29 @@ public class Parent {
     @Column
     private String description;
 
-    @OneToMany
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "parents_students",
+            joinColumns = @JoinColumn(name = "parent_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @JsonIgnore
     private List<Student> children;
+
+    public static class ParentBuilder {
+        public Parent.ParentBuilder ofRequest(ParentRequest request) {
+            firstName = request.firstName;
+            lastName = request.lastName;
+            city = request.city;
+            phoneNumber = request.phoneNumber;
+            email = request.email;
+            facebook = request.facebook;
+            whatsapp = request.whatsapp;
+            birthDate = request.birthDate;
+            nameDay = request.nameDay;
+            description = request.description;
+            return this;
+        }
+    }
 }

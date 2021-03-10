@@ -7,6 +7,9 @@ import ad.school.planner.inner.education_year.EducationYear;
 import ad.school.planner.inner.education_year.EducationYearRequest;
 import ad.school.planner.inner.education_year.EducationYearService;
 import ad.school.planner.inner.lesson.LessonService;
+import ad.school.planner.inner.parent.Parent;
+import ad.school.planner.inner.parent.ParentRequest;
+import ad.school.planner.inner.parent.ParentService;
 import ad.school.planner.inner.school.School;
 import ad.school.planner.inner.school.SchoolRequest;
 import ad.school.planner.inner.school.SchoolService;
@@ -33,6 +36,7 @@ public class PlannerFacade {
     private final SubjectService subjectService;
     private final EducationYearService educationYearService;
     private final EducationPlanService educationPlanService;
+    private final ParentService parentService;
 
     public Collection<Student> showAllStudents() {
         return studentService.getAll();
@@ -72,5 +76,10 @@ public class PlannerFacade {
         var educationYear = educationYearService.getById(request.educationYearId).orElseThrow();
         var subject = subjectService.getById(request.subjectId).orElseThrow();
         return educationPlanService.add(request, educationYear, subject);
+    }
+
+    public Parent addParent(ParentRequest request) {
+        var student = studentService.getById(request.studentId).orElseThrow();
+        return parentService.add(request, student);
     }
 }

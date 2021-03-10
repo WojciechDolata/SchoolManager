@@ -1,7 +1,9 @@
 package ad.school.planner.inner.student;
 
+import ad.school.planner.inner.education_year.EducationYear;
 import ad.school.planner.inner.lesson.Lesson;
 import ad.school.planner.inner.parent.Parent;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +13,14 @@ import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -76,15 +81,32 @@ public class Student {
     @Column
     private String description;
 
-    @ManyToMany
+    @ManyToMany(
+            mappedBy = "children",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
     private List<Parent> parents;
 
-    @ManyToMany
+    @ManyToMany(
+            mappedBy = "students",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
     private List<Lesson> lessons;
+
+    @OneToMany(
+            mappedBy = "student",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    private List<EducationYear> educationYears;
 
     static class StudentBuilder {
         Student.StudentBuilder ofRequest(StudentRequest request) {
             nick = request.nick;
+            if (request.firstName == null)
+                throw new IllegalArgumentException("First name cannot be null");
             firstName = request.firstName;
             lastName = request.lastName;
             city = request.city;
@@ -94,7 +116,7 @@ public class Student {
             whatsapp = request.whatsapp;
             birthDate = request.birthDate;
             nameDay = request.nameDay;
-            since = request.since;
+            since = request.since == null ? new Date() : request.since;
             description = request.description;
             return this;
         }
