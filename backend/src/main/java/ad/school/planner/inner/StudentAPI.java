@@ -40,6 +40,10 @@ public class StudentAPI {
         return studentService.getBy(queryString);
     }
 
+    public Student getStudentById(UUID id) {
+        return studentService.getById(id).orElseThrow();
+    }
+
     public Student updateStudent(UUID id, StudentRequest updatedStudent) {
         return studentService.update(id, updatedStudent);
     }

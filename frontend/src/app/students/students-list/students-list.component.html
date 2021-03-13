@@ -1,1 +1,27 @@
-<p>students-list works!</p>
+<div class="container-fluid">
+  <table class="table table-bordered table-hover" aria-label="Wszyscy uczniowie">
+    <thead class="bg-light">
+      <tr>
+        <th scope="col">Imię</th>
+        <th scope="col">Nazwisko</th>
+        <th scope="col">Pseudonim</th>
+        <th scope="col">Miasto</th>
+        <th scope="col">Email</th>
+        <th scope="col">Numer telefonu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let student of students"
+        routerLink="/student/{{ student.id }}/details"
+      >
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>{{ student.nick }}</td>
+        <td>{{ student.city }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.phoneNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

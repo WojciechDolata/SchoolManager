@@ -10,6 +10,7 @@ import ad.school.planner.inner.student.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/student")
 public class StudentController {
@@ -36,6 +38,11 @@ public class StudentController {
     @GetMapping(value = "/all", produces = {"application/json"})
     public ResponseEntity<Collection<Student>> getAllStudents() {
         return ResponseEntity.ok(studentAPI.showAllStudents());
+    }
+
+    @GetMapping(value = "/{id}", produces = {"application/json"})
+    public ResponseEntity<Student> getAllStudents(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(studentAPI.getStudentById(id));
     }
 
     @GetMapping(produces = {"application/json"})

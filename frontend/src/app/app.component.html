@@ -1,13 +1,15 @@
-<nav  class="navbar navbar-expand-lg navbar-light bg-light">
-  <span  class="navbar-brand">School manager</span>
-  <ul  class="navbar-nav mr-auto">
-    <li  class="nav-item active">
-      <a  class="nav-link" [routerLink]="'/lessons'">Lekcje</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <span class="navbar-brand">School manager</span>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" [routerLink]="'/lessons'">Lekcje</a>
     </li>
-    <li  class="nav-item active">
-      <a  class="nav-link" [routerLink]="'/students'">Uczniowie</a>
+    <li class="nav-item active">
+      <a class="nav-link" [routerLink]="'/students'">Uczniowie</a>
     </li>
   </ul>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="main-app-content">
+  <router-outlet></router-outlet>
+</div>

@@ -1,9 +1,9 @@
 package ad.school.planner.inner.school;
 
 enum EducationLevel {
-    LICEUM("Liceum"),
-    SZKOLA_PODSTAWOWA("Szkoła podstawowa"),
-    STUDIA("Studia");
+    HIGH_SCHOOL("Liceum"),
+    PRIMARY_SCHOOL("Szkoła podstawowa"),
+    UNIVERSITY("Studia");
 
     String name;
 
