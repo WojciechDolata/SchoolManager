@@ -10,6 +10,7 @@ import { StudentDetailsComponent } from './students/student-details/student-deta
 import { HttpClientModule } from '@angular/common/http';
 import { AddStudentModalComponent } from './students/add-student/add-student-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

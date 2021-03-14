@@ -1,3 +1,8 @@
 <div class="container-fluid">
-  a
+  <mat-spinner *ngIf="!student" style="margin: 20% auto;" [color]="'primary'"></mat-spinner>
+  <div *ngIf="student">
+    {{student.nick}}
+    {{student.firstName}}
+    {{student.lastName}}
+  </div>
 </div>
