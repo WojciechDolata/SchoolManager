@@ -67,7 +67,6 @@ export interface EducationYear {
   subjectId: string;
 }
 
-
 export interface Lesson {
   id: string;
   beginningDate: Date;

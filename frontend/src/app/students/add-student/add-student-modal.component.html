@@ -1,0 +1,177 @@
+<div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#exampleModalLong"
+  >
+    Dodaj ucznia
+  </button>
+  <div
+    class="modal fade"
+    id="exampleModalLong"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <form
+          [formGroup]="newStudentForm"
+          (ngSubmit)="onSubmit(newStudentForm)"
+          [ngClass]="displayValidation ? 'was-validated' : ''"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              Dodaj nowego ucznia
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <label for="firstName">Imię</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    formControlName="firstName"
+                    required
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="lastName">Nazwisko</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    formControlName="lastName"
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="nick">Pseudonim</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nick"
+                    formControlName="nick"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    email
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="phoneNumber">Numer telefonu</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phoneNumber"
+                    formControlName="phoneNumber"
+                    (keypress)="isNumberKey($event)"
+                    minlength="9"
+                    maxlength="15"
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="city">Miasto</label>
+                  <select class="form-control" id="city" formControlName="city">
+                    <option>Wybierz z listy</option>
+                    <option *ngFor="let city of getCities()">{{ city }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <label for="birthDay">Urodziny</label>
+                  <input
+                    type="date"
+                    name="birthDay"
+                    max="2100-12-31"
+                    id="birthDay"
+                    min="1900-01-01"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="nameDay">Imieniny</label>
+                  <input
+                    type="date"
+                    name="nameDay"
+                    max="2100-12-31"
+                    id="nameDay"
+                    min="1900-01-01"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="since">Klient od</label>
+                  <input
+                    type="date"
+                    name="since"
+                    max="2100-12-31"
+                    id="since"
+                    value="{{ getTodayDateAsString() }}"
+                    min="2010-01-01"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="facebook">Facebook</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="facebook"
+                  formControlName="facebook"
+                />
+              </div>
+              <div class="form-group">
+                <label for="whatsapp">Whatsapp</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="whatsapp"
+                  formControlName="whatsapp"
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">Dodatkowy opis</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  rows="10"
+                  formControlName="description"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeButton>
+              Zamknij
+            </button>
+            <button type="submit" class="btn btn-primary">Dodaj ucznia</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

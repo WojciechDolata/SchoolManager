@@ -8,6 +8,8 @@ import { LessonsListComponent } from './lessons/lessons-list/lessons-list.compon
 import { LessonDetailsComponent } from './lessons/lesson-details/lesson-details.component';
 import { StudentDetailsComponent } from './students/student-details/student-details.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddStudentModalComponent } from './students/add-student/add-student-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,15 @@ import { HttpClientModule } from '@angular/common/http';
     LessonsListComponent,
     LessonDetailsComponent,
     StudentDetailsComponent,
+    AddStudentModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

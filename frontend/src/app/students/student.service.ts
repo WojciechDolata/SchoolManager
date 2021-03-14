@@ -19,4 +19,8 @@ export class StudentService {
   getStudentById(id: string): Observable<Student> {
     return this.http.get<Student>(this.baseUrl + '/' + id);
   }
+
+  addStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.baseUrl, student);
+  }
 }
