@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddStudentModalComponent } from './students/add-student/add-student-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { EducationYearsComponent } from './students/education-years/education-years.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LessonDetailsComponent,
     StudentDetailsComponent,
     AddStudentModalComponent,
+    EducationYearsComponent,
   ],
   imports: [
     BrowserModule,

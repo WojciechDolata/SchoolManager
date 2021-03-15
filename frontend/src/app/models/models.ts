@@ -57,10 +57,11 @@ export interface EducationYear {
   classNumber: number;
   description: string;
   schoolId: string;
+  school: School;
   studentId: string;
 }
 
-export interface EducationYear {
+export interface EducationPlan {
   id: string;
   topic: string;
   educationYearId: number;
@@ -78,4 +79,12 @@ export interface Lesson {
 export interface Subject {
   id: string;
   name: string;
+}
+
+export function getMockYear(): EducationYear {
+  return {
+    schoolYear: '2015/2016',
+    classNumber: 1,
+    school: {} as School,
+  } as EducationYear;
 }

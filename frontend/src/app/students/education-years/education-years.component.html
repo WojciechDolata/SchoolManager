@@ -1,0 +1,47 @@
+<table class="table w-100">
+  <thead class="thead-dark">
+  <tr>
+    <th class="w-25" scope="col">Szkoła</th>
+    <th class="w-25" scope="col">Rok szkolny</th>
+    <th class="w-25" scope="col">Klasa</th>
+    <th class="w-25" scope="col">Opis</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr
+    *ngFor="let year of educationYears"
+  >
+    <td>{{ year.school.name }}</td>
+    <td>{{ year.schoolYear }}</td>
+    <td>{{ year.classNumber }}</td>
+    <td>{{ year.description }}</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
+      <select class="form-control" id="school" [(ngModel)]="newEducationYear.school">
+        <option *ngFor="let school of schools" [ngValue]="school">{{school.name}}</option>
+      </select>
+    </td>
+    <td>
+      <select class="form-control" id="year" [(ngModel)]="newEducationYear.schoolYear">
+        <option *ngFor="let year of getSchoolYears()">{{year}}</option>
+      </select>
+    </td>
+    <td>
+      <select class="form-control" id="class" [(ngModel)]="newEducationYear.classNumber">
+        <option *ngFor="let classNumber of getPossibleClasses()">{{classNumber}}</option>
+      </select>
+    </td>
+    <td>
+      <input
+        type="text"
+        [(ngModel)]="newEducationYear.description"
+      />
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="addEducationYear()">Dodaj</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
