@@ -68,6 +68,10 @@ public class StudentAPI {
         return educationPlanService.add(request, educationYear, subject);
     }
 
+    public List<EducationPlan> getEducationPlansForYear(UUID educationYearId) {
+        return this.educationPlanService.getAllByYearId(educationYearId);
+    }
+
     public Parent addParent(ParentRequest request) {
         var student = studentService.getById(request.studentId).orElseThrow();
         return parentService.add(request, student);

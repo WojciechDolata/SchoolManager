@@ -25,7 +25,11 @@
         <td>{{ student.email }}</td>
         <td>{{ student.phoneNumber }}</td>
       </tr>
-      <mat-spinner *ngIf="!students" style="margin: 20% auto;" [color]="'primary'"></mat-spinner>
+      <mat-spinner
+        *ngIf="!students"
+        style="margin: 20% auto"
+        [color]="'primary'"
+      ></mat-spinner>
     </tbody>
   </table>
   <app-add-student></app-add-student>

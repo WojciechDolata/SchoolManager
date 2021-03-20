@@ -1,6 +1,8 @@
 package ad.school.planner.controllers;
 
 import ad.school.planner.inner.StudentAPI;
+import ad.school.planner.inner.education_plan.EducationPlan;
+import ad.school.planner.inner.education_plan.EducationPlanRequest;
 import ad.school.planner.inner.education_year.EducationYear;
 import ad.school.planner.inner.education_year.EducationYearRequest;
 import ad.school.planner.inner.parent.Parent;
@@ -66,13 +68,23 @@ public class StudentController {
         return ResponseEntity.ok(studentAPI.addParent(request));
     }
 
-    @PostMapping(value = "/educationYear", produces = {"application/json"})
+    @PostMapping(value = "/year", produces = {"application/json"})
     public ResponseEntity<EducationYear> addEducationYear(@RequestBody EducationYearRequest request) {
         return ResponseEntity.ok(studentAPI.addEducationYear(request));
     }
 
-    @GetMapping(value = "/{id}/educationYear", produces = {"application/json"})
+    @GetMapping(value = "/{id}/year", produces = {"application/json"})
     public ResponseEntity<List<EducationYear>> getEducationYearsForStudent(@PathVariable String id) {
         return ResponseEntity.ok(studentAPI.getEducationYearsForStudent(UUID.fromString(id)));
+    }
+
+    @PostMapping(value = "/plan", produces = {"application/json"})
+    public ResponseEntity<EducationPlan> addEducationPlan(@RequestBody EducationPlanRequest request) {
+        return ResponseEntity.ok(studentAPI.addEducationPlan(request));
+    }
+
+    @GetMapping(value = "/plan/{yearId}", produces = {"application/json"})
+    public ResponseEntity<List<EducationPlan>> getEducationPlansForYear(@PathVariable String yearId) {
+        return ResponseEntity.ok(studentAPI.getEducationPlansForYear(UUID.fromString(yearId)));
     }
 }

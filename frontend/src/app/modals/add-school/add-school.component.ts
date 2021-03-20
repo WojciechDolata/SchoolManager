@@ -1,16 +1,22 @@
-import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import {EducationLevel, School} from '../../models/models';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonService} from '../../common/common.service';
-import {cities} from '../../common/cities';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+import { EducationLevel, School } from '../../models/models';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CommonService } from '../../common/common.service';
+import { cities } from '../../common/cities';
 
 @Component({
   selector: 'app-add-school',
   templateUrl: './add-school.component.html',
-  styleUrls: ['./add-school.component.css']
+  styleUrls: ['./add-school.component.css'],
 })
 export class AddSchoolComponent implements OnInit {
-
   @Output() successfulAddition = new EventEmitter<any>();
   @ViewChild('closeButton') closeButton: ElementRef;
 
@@ -27,22 +33,23 @@ export class AddSchoolComponent implements OnInit {
       schoolName: '',
       street: '',
       city: null,
-      level: null
+      level: null,
     });
   }
 
   onSubmit(formValue): void {
-    console.log(formValue);
     if (formValue.schoolName !== '') {
-      this.commonService.addSchool({
-        name: formValue.schoolName,
-        street: formValue.street,
-        city: formValue.city,
-        level: formValue.level,
-      } as School).subscribe(() => {
-        this.closeButton.nativeElement.click();
-        this.successfulAddition.emit(null);
-      });
+      this.commonService
+        .addSchool({
+          name: formValue.schoolName,
+          street: formValue.street,
+          city: formValue.city,
+          level: formValue.level,
+        } as School)
+        .subscribe(() => {
+          this.closeButton.nativeElement.click();
+          this.successfulAddition.emit(null);
+        });
     } else {
       this.displayValidation = true;
     }
@@ -55,5 +62,4 @@ export class AddSchoolComponent implements OnInit {
   getCities(): string[] {
     return cities;
   }
-
 }

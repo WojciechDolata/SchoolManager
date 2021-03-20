@@ -1,0 +1,47 @@
+<table class="table w-100">
+  <thead class="thead-dark">
+    <tr>
+      <th class="w-25" scope="col">Przedmiot</th>
+      <th class="w-75" scope="col">Temat</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!educationYear">
+      Wybierz rok szkolny
+    </tr>
+    <tr *ngFor="let plan of educationPlans; let i = index">
+      <td>{{ plan.subject.name }}</td>
+      <td>{{ plan.topic }}</td>
+      <td></td>
+    </tr>
+    <tr *ngIf="educationYear">
+      <td>
+        <select
+          class="form-control"
+          id="subject"
+          [(ngModel)]="newEducationPlan.subject"
+          required
+        >
+          <option *ngFor="let subject of subjects" [ngValue]="subject">
+            {{ subject.name }}
+          </option>
+        </select>
+      </td>
+      <td>
+        <input
+          class="w-100"
+          type="text"
+          [(ngModel)]="newEducationPlan.topic"
+          required
+        />
+      </td>
+      <td>
+        <button class="btn btn-primary" (click)="addEducationPlan()">
+          Dodaj
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<app-add-subject (successfulAddition)="loadSubjects()"></app-add-subject>

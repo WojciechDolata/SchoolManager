@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {EducationYear, Student} from '../models/models';
+import { EducationPlan, EducationYear, Student } from '../models/models';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -25,10 +25,20 @@ export class StudentService {
   }
 
   getEducationYearsFor(studentId: string): Observable<EducationYear[]> {
-    return this.http.get<EducationYear[]>(this.baseUrl + '/' + studentId + '/educationYear');
+    return this.http.get<EducationYear[]>(
+      this.baseUrl + '/' + studentId + '/year'
+    );
   }
 
   addEducationYear(educationYear: EducationYear): Observable<EducationYear> {
-    return this.http.post<EducationYear>(this.baseUrl + '/educationYear', educationYear);
+    return this.http.post<EducationYear>(this.baseUrl + '/year', educationYear);
+  }
+
+  getEducationPlansFor(yearId: string): Observable<EducationPlan[]> {
+    return this.http.get<EducationPlan[]>(this.baseUrl + '/plan/' + yearId);
+  }
+
+  addEducationPlan(educationPlan: EducationPlan): Observable<EducationPlan> {
+    return this.http.post<EducationPlan>(this.baseUrl + '/plan', educationPlan);
   }
 }

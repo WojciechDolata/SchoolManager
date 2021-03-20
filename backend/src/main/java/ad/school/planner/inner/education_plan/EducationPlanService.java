@@ -5,6 +5,9 @@ import ad.school.planner.inner.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class EducationPlanService {
     private final EducationPlanRepository repository;
@@ -24,5 +27,9 @@ public class EducationPlanService {
                         .subject(subject)
                         .build()
         );
+    }
+
+    public List<EducationPlan> getAllByYearId(UUID yearId) {
+        return repository.getEducationPlansByEducationYearId(yearId);
     }
 }

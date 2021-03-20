@@ -1,11 +1,3 @@
-export interface Lesson {
-  id: string;
-  beginningDate: Date;
-  endDate: Date;
-  description: string;
-  topic: string;
-}
-
 export interface Student {
   id: string;
   nick: string;
@@ -64,8 +56,9 @@ export interface EducationYear {
 export interface EducationPlan {
   id: string;
   topic: string;
-  educationYearId: number;
+  educationYearId: string;
   subjectId: string;
+  subject: Subject;
 }
 
 export interface Lesson {

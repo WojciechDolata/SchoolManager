@@ -1,8 +1,12 @@
 package ad.school.planner.inner.subject;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
-@AllArgsConstructor
 public class SubjectRequest {
     public final String name;
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public SubjectRequest(String name) {
+        this.name = name;
+    }
 }

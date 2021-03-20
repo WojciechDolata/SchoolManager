@@ -1,10 +1,14 @@
 <div class="container-fluid">
-  <mat-spinner *ngIf="!student" style="margin: 20% auto;" [color]="'primary'"></mat-spinner>
+  <mat-spinner
+    *ngIf="!student"
+    style="margin: 20% auto"
+    [color]="'primary'"
+  ></mat-spinner>
   <div class="row" *ngIf="student">
     <div class="col-md-4">
-    {{student.nick}}
-    {{student.firstName}}
-    {{student.lastName}}
+      {{ student.nick }}
+      {{ student.firstName }}
+      {{ student.lastName }}
     </div>
     <div class="col-md-8">
       <app-education-years></app-education-years>

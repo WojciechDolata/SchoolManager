@@ -1,16 +1,21 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../../models/models';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { cities } from '../../common/cities';
-import { StudentService } from '../student.service';
 import { Router } from '@angular/router';
+import { StudentService } from '../../students/student.service';
 
 @Component({
   selector: 'app-add-student',
-  templateUrl: './add-student-modal.component.html',
-  styleUrls: ['./add-student-modal.component.css'],
+  templateUrl: './add-student.component.html',
+  styleUrls: ['./add-student.component.css'],
 })
-export class AddStudentModalComponent implements OnInit {
+export class AddStudentComponent implements OnInit {
   @ViewChild('closeButton') closeButton: ElementRef;
 
   newStudentForm: FormGroup;
@@ -56,7 +61,7 @@ export class AddStudentModalComponent implements OnInit {
   }
 
   isNumberKey(evt): boolean {
-    const charCode = (evt.which) ? evt.which : evt.keyCode;
+    const charCode = evt.which ? evt.which : evt.keyCode;
     return (charCode > 47 && charCode < 58) || charCode === 43;
   }
 
