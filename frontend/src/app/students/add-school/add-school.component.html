@@ -1,0 +1,85 @@
+<div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#schoolModal"
+  >
+    Dodaj szkołę
+  </button>
+  <div
+    class="modal fade"
+    id="schoolModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="schoolModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form
+          [formGroup]="newSchoolForm"
+          (ngSubmit)="onSubmit(newSchoolForm.value)"
+          [ngClass]="displayValidation ? 'was-validated' : ''"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title" id="schoolModalTitle">
+              Dodaj nową szkołę
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="col-md-12 form-group">
+                <label for="schoolName">Nazwa</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="schoolName"
+                  formControlName="schoolName"
+                  required
+                />
+              </div>
+              <div class="col-md-12 form-group">
+                <label for="street">Ulica</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="street"
+                  formControlName="street"
+                />
+              </div>
+              <div class="col-md-12 form-group">
+                <label for="city">Miasto</label>
+                <select class="form-control" id="city" formControlName="city" required>
+                  <option value="" selected>Wybierz miasto</option>
+                  <option *ngFor="let city of getCities()">{{ city }}</option>
+                </select>
+              </div>
+              <div class="col-md-12 form-group">
+                <label for="level">Poziom</label>
+                <select class="form-control" id="level" formControlName="level" required>
+                  <option value="" selected>Wybierz poziom</option>
+                  <option *ngFor="let level of getSchoolLevels()">{{ level }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeButton>
+              Zamknij
+            </button>
+            <button type="submit" class="btn btn-primary">Dodaj szkołę</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StudentService} from '../student.service';
-import {EducationYear, getMockYear, School} from '../../models/models';
+import {EducationLevel, EducationYear, getMockYear, School} from '../../models/models';
 import {ActivatedRoute} from '@angular/router';
 import {CommonService} from '../../common/common.service';
 import {schoolYears} from '../../common/schoolYears';
@@ -12,6 +12,7 @@ import {schoolYears} from '../../common/schoolYears';
 })
 export class EducationYearsComponent implements OnInit {
   private id: string;
+
   educationYears: EducationYear[];
   schools: School[];
   newEducationYear = getMockYear();
@@ -22,21 +23,25 @@ export class EducationYearsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.reloadData();
-    this.commonService.getAllSchools().subscribe(data => this.schools = data);
+    this.reloadEducationYears();
+    this.reloadSchools();
   }
 
-  reloadData(): void {
+  reloadEducationYears(): void {
     this.studentService
       .getEducationYearsFor(this.id)
       .subscribe(data => this.educationYears = data);
+  }
+
+  reloadSchools(): void {
+    this.commonService.getAllSchools().subscribe(data => this.schools = data);
   }
 
   addEducationYear(): void {
     this.newEducationYear.studentId = this.id;
     this.newEducationYear.schoolId = this.newEducationYear.school.id;
     this.studentService.addEducationYear(this.newEducationYear).subscribe(
-      () => this.reloadData()
+      () => this.reloadEducationYears()
     );
     this.newEducationYear = getMockYear();
   }
@@ -46,15 +51,27 @@ export class EducationYearsComponent implements OnInit {
   }
 
   getPossibleClasses(): number[] {
+    console.log(this.newEducationYear);
     if (this.newEducationYear.school) {
-      // typescript string enums seem not to work in switch statement
-      if (this.newEducationYear.school.level as string === 'HIGH_SCHOOL') {
+      switch (this.newEducationYear.school.level) {
+        case EducationLevel.HIGH_SCHOOL:
+          return this.getArrayOneToN(3);
+        case EducationLevel.PRIMARY_SCHOOL:
+          return this.getArrayOneToN(8);
+        case EducationLevel.UNIVERSITY:
+          return this.getArrayOneToN(5);
+      }
+      if (this.newEducationYear.school.level === EducationLevel.HIGH_SCHOOL) {
         return [1, 2, 3];
       } else {
         return [1, 2, 3, 4 , 5, 6, 7, 8];
       }
     }
     return [];
+  }
+
+  private getArrayOneToN(n: number): number[] {
+    return [ ...Array(n).keys() ].map( i => i + 1);
   }
 
 }

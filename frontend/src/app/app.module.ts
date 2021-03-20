@@ -12,6 +12,7 @@ import { AddStudentModalComponent } from './students/add-student/add-student-mod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EducationYearsComponent } from './students/education-years/education-years.component';
+import { AddSchoolComponent } from './students/add-school/add-school.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { EducationYearsComponent } from './students/education-years/education-ye
     StudentDetailsComponent,
     AddStudentModalComponent,
     EducationYearsComponent,
+    AddSchoolComponent,
   ],
   imports: [
     BrowserModule,
