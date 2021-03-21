@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../common/common.service';
 import { schoolYears } from '../../common/schoolYears';
+import { yearsComparator } from '../student-helper';
 
 @Component({
   selector: 'app-education-years',
@@ -37,9 +38,10 @@ export class EducationYearsComponent implements OnInit {
   }
 
   reloadEducationYears(): void {
-    this.studentService
-      .getEducationYearsFor(this.id)
-      .subscribe((data) => (this.educationYears = data));
+    this.studentService.getEducationYearsFor(this.id).subscribe((data) => {
+      data.sort(yearsComparator);
+      this.educationYears = data;
+    });
   }
 
   reloadSchools(): void {

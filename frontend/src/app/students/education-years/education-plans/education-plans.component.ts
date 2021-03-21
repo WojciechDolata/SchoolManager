@@ -1,4 +1,10 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { EducationPlan, EducationYear, Subject } from '../../../models/models';
 import { CommonService } from '../../../common/common.service';
 import { StudentService } from '../../student.service';
@@ -51,8 +57,8 @@ export class EducationPlansComponent implements OnInit, OnChanges {
   addEducationPlan(): void {
     this.newEducationPlan.subjectId = this.newEducationPlan.subject.id;
     this.newEducationPlan.educationYearId = this.educationYear.id;
-    this.studentService.addEducationPlan(this.newEducationPlan).subscribe(
-      () => this.loadEducationPlans()
-    );
+    this.studentService
+      .addEducationPlan(this.newEducationPlan)
+      .subscribe(() => this.loadEducationPlans());
   }
 }

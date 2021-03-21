@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Student } from '../../models/models';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +8,8 @@ import {
 import { cities } from '../../common/cities';
 import { Router } from '@angular/router';
 import { StudentService } from '../../students/student.service';
+import { castFormToStudent } from '../../students/student-helper';
+import { convertDate, isNumberKey } from '../../common/common-helper';
 
 @Component({
   selector: 'app-add-student',
@@ -37,9 +38,9 @@ export class AddStudentComponent implements OnInit {
       email: '',
       facebook: '',
       whatsapp: '',
-      birthDate: null,
-      nameDay: null,
-      since: new Date(),
+      birthDate: '',
+      nameDay: '',
+      since: convertDate(new Date()),
       description: '',
     });
   }
@@ -48,40 +49,13 @@ export class AddStudentComponent implements OnInit {
     return cities;
   }
 
-  getTodayDateAsString(): string {
-    const date = new Date();
-    return (
-      date.getFullYear() +
-      '-' +
-      (date.getMonth() < 9 ? '0' : '') +
-      (date.getMonth() + 1) +
-      '-' +
-      date.getDate()
-    );
-  }
-
   isNumberKey(evt): boolean {
-    const charCode = evt.which ? evt.which : evt.keyCode;
-    return (charCode > 47 && charCode < 58) || charCode === 43;
+    return isNumberKey(evt);
   }
 
   onSubmit(form): void {
     if (form.status === 'VALID') {
-      const formValue = form.value;
-      const student = {
-        nick: formValue.nick,
-        firstName: formValue.firstName,
-        lastName: formValue.lastName,
-        city: formValue.city,
-        phoneNumber: formValue.phoneNumber,
-        email: formValue.email,
-        facebook: formValue.facebook,
-        whatsapp: formValue.whatsapp,
-        birthDate: formValue.birthDate,
-        nameDay: formValue.nameDay,
-        since: formValue.since,
-        description: formValue.description,
-      } as Student;
+      const student = castFormToStudent(form);
       this.studentService.addStudent(student).subscribe((newStudent) => {
         this.closeButton.nativeElement.click();
         this.router.navigate([`/student/${newStudent.id}/details`]);

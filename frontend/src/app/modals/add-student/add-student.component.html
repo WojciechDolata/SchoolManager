@@ -100,13 +100,14 @@
               </div>
               <div class="row">
                 <div class="col-md-4 form-group">
-                  <label for="birthDay">Urodziny</label>
+                  <label for="birthDate">Urodziny</label>
                   <input
                     type="date"
-                    name="birthDay"
+                    name="birthDate"
                     max="2100-12-31"
-                    id="birthDay"
+                    id="birthDate"
                     min="1900-01-01"
+                    formControlName="birthDate"
                     class="form-control"
                   />
                 </div>
@@ -118,6 +119,7 @@
                     max="2100-12-31"
                     id="nameDay"
                     min="1900-01-01"
+                    formControlName="nameDay"
                     class="form-control"
                   />
                 </div>
@@ -128,8 +130,8 @@
                     name="since"
                     max="2100-12-31"
                     id="since"
-                    value="{{ getTodayDateAsString() }}"
                     min="2010-01-01"
+                    formControlName="since"
                     class="form-control"
                     required
                   />

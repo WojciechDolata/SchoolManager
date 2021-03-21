@@ -1,17 +1,183 @@
 <div class="container-fluid">
+  <h1 class="text-center">Informacje o uczniu</h1>
   <mat-spinner
     *ngIf="!student"
     style="margin: 20% auto"
     [color]="'primary'"
   ></mat-spinner>
-  <div class="row" *ngIf="student">
-    <div class="col-md-4">
-      {{ student.nick }}
-      {{ student.firstName }}
-      {{ student.lastName }}
-    </div>
-    <div class="col-md-8">
-      <app-education-years></app-education-years>
+  <div class="py-5">
+    <div class="row" *ngIf="student">
+      <div class="col-md-5">
+        <form
+          [formGroup]="studentAsForm"
+          (ngSubmit)="submitForm()"
+          [ngClass]="displayValidation ? 'was-validated' : ''"
+        >
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="firstName">Imię</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="firstName"
+                formControlName="firstName"
+                [attr.disabled]="isEditModeOn ? null : ''"
+                required
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="lastName">Nazwisko</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="lastName"
+                formControlName="lastName"
+                [attr.disabled]="isEditModeOn ? null : ''"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="nick">Pseudonim</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="nick"
+                formControlName="nick"
+                [attr.disabled]="isEditModeOn ? null : ''"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="phoneNumber">Numer telefonu</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                (keypress)="isNumberKey($event)"
+                minlength="9"
+                maxlength="15"
+                [attr.disabled]="isEditModeOn ? null : ''"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="city">Miasto</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="city"
+                formControlName="city"
+                [attr.disabled]="isEditModeOn ? null : ''"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+              id="email"
+              formControlName="email"
+              [attr.disabled]="isEditModeOn ? null : ''"
+              email
+            />
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="facebook">Facebook</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="facebook"
+                formControlName="facebook"
+                [attr.disabled]="isEditModeOn ? null : ''"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="whatsapp">WhatsApp</label>
+              <input
+                type="text"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                id="whatsapp"
+                formControlName="whatsapp"
+                [attr.disabled]="isEditModeOn ? null : ''"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label for="birthDate">Urodziny</label>
+              <input
+                type="date"
+                name="birthDate"
+                max="2100-12-31"
+                id="birthDate"
+                min="1900-01-01"
+                formControlName="birthDate"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                [readOnly]="!isEditModeOn"
+              />
+            </div>
+            <div class="col-md-4 form-group">
+              <label for="nameDay">Imieniny</label>
+              <input
+                type="date"
+                name="nameDay"
+                max="2100-12-31"
+                id="nameDay"
+                min="1900-01-01"
+                formControlName="nameDay"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                [readOnly]="!isEditModeOn"
+              />
+            </div>
+            <div class="col-md-4 form-group">
+              <label for="since">Klient od</label>
+              <input
+                type="date"
+                name="since"
+                max="2100-12-31"
+                id="since"
+                min="2010-01-01"
+                formControlName="since"
+                class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+                [readOnly]="!isEditModeOn"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Dodatkowy opis</label>
+            <textarea
+              class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+              id="description"
+              rows="10"
+              formControlName="description"
+              [attr.readonly]="isEditModeOn ? null : ''"
+            ></textarea>
+          </div>
+          <div class="row">
+            <div class="w-25">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="editSwitch()"
+              >
+                {{ isEditModeOn ? "Wyłącz" : "Włącz" }} edycję
+              </button>
+            </div>
+            <div class="w-25" *ngIf="isEditModeOn">
+              <button class="btn btn-success" type="submit">Zapisz</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-7">
+        <app-education-years></app-education-years>
+      </div>
     </div>
   </div>
 </div>

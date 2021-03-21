@@ -24,6 +24,10 @@ export class StudentService {
     return this.http.post<Student>(this.baseUrl, student);
   }
 
+  updateStudent(id: string, student: Student): Observable<Student> {
+    return this.http.put<Student>(this.baseUrl + '/' + id, student);
+  }
+
   getEducationYearsFor(studentId: string): Observable<EducationYear[]> {
     return this.http.get<EducationYear[]>(
       this.baseUrl + '/' + studentId + '/year'
