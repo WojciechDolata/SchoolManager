@@ -16,9 +16,10 @@ import ad.school.planner.inner.student.StudentService;
 import ad.school.planner.inner.subject.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,12 +33,8 @@ public class StudentAPI {
     private final EducationPlanService educationPlanService;
     private final ParentService parentService;
 
-    public Collection<Student> showAllStudents() {
-        return studentService.getAll();
-    }
-
-    public Collection<Student> getStudentBy(String queryString) {
-        return studentService.getBy(queryString);
+    public Page<Student> getStudentsBy(String query, Pageable pageable) {
+        return studentService.getAllBy(query, pageable);
     }
 
     public Student getStudentById(UUID id) {

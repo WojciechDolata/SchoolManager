@@ -10,6 +10,9 @@ import ad.school.planner.inner.parent.ParentRequest;
 import ad.school.planner.inner.student.Student;
 import ad.school.planner.inner.student.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.websocket.server.PathParam;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,18 +40,15 @@ public class StudentController {
     }
 
     @GetMapping(value = "/all", produces = {"application/json"})
-    public ResponseEntity<Collection<Student>> getAllStudents() {
-        return ResponseEntity.ok(studentAPI.showAllStudents());
+    public ResponseEntity<Page<Student>> getAllStudents(
+            @PathParam(value = "query") String query,
+            @PageableDefault(size = 20) Pageable pageable) {
+        return ResponseEntity.ok(studentAPI.getStudentsBy(query, pageable));
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<Student> getAllStudents(@PathVariable("id") UUID id) {
+    public ResponseEntity<Student> getStudent(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(studentAPI.getStudentById(id));
-    }
-
-    @GetMapping(produces = {"application/json"})
-    public ResponseEntity<Collection<Student>> addStudent(@PathParam(value = "queryString") String queryString) {
-        return ResponseEntity.ok(studentAPI.getStudentBy(queryString));
     }
 
     @PostMapping(produces = {"application/json"})

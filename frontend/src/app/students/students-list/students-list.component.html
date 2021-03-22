@@ -1,16 +1,44 @@
 <div class="container-fluid">
+  <h1 class="text-center">Wszyscy uczniowie</h1>
+  <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="search()">
+    <label class="sr-only" for="searchBox">Wyszukaj: </label>
+    <input
+      type="text"
+      class="form-control mb-2 w-50"
+      id="searchBox"
+      formControlName="query"
+    />
+    <button type="submit" class="btn btn-primary mx-2 mb-2">Wyszukaj</button>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="activeCheckbox"
+        formControlName="active"
+      />
+      <label class="form-check-label" for="activeCheckbox"
+        >tylko aktywni w tym roku</label
+      >
+    </div>
+  </form>
   <table
     class="table table-bordered table-hover"
     aria-label="Wszyscy uczniowie"
   >
     <thead class="bg-light">
       <tr>
-        <th scope="col">Imię</th>
-        <th scope="col">Nazwisko</th>
-        <th scope="col">Pseudonim</th>
-        <th scope="col">Miasto</th>
-        <th scope="col">Email</th>
-        <th scope="col">Numer telefonu</th>
+        <th
+          *ngFor="let column of sortableHeaders.getColumns()"
+          (click)="sortChange(column.name)"
+          scope="col"
+          class="w-{{ column.width }}"
+        >
+          <span class="px-3">{{ column.name }}</span>
+          <i
+            *ngIf="column.showIcon()"
+            class="bi {{ column.getIconClass() }}"
+          ></i>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -25,11 +53,6 @@
         <td>{{ student.email }}</td>
         <td>{{ student.phoneNumber }}</td>
       </tr>
-      <mat-spinner
-        *ngIf="!students"
-        style="margin: 20% auto"
-        [color]="'primary'"
-      ></mat-spinner>
     </tbody>
   </table>
   <app-add-student></app-add-student>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EducationPlan, EducationYear, Student } from '../models/models';
+import { EducationPlan, EducationYear, Page, Student } from '../models/models';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,8 +12,18 @@ export class StudentService {
 
   constructor(private http: HttpClient) {}
 
-  getAllStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(this.baseUrl + '/all');
+  getAllStudentsBy(
+    pageNumber: number,
+    query: string,
+    sort: string
+  ): Observable<Page<Student>> {
+    return this.http.get<Page<Student>>(
+      this.baseUrl +
+        '/all?page=' +
+        pageNumber +
+        (query ? '&query=' + query : '') +
+        (sort ? '&sort=' + sort : '')
+    );
   }
 
   getStudentById(id: string): Observable<Student> {

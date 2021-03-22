@@ -14,6 +14,13 @@ export interface Student {
   description: string;
 }
 
+export interface Page<T> {
+  content: T[];
+  last: boolean;
+  numberOfElements: number;
+  totalPages: number;
+}
+
 export interface School {
   id: string;
   name: string;

@@ -1,9 +1,10 @@
 package ad.school.planner.inner.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,16 +18,13 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Collection<Student> getAll() {
-        return (Collection<Student>) studentRepository.findAll();
+    public Page<Student> getAllBy(String query, Pageable pageable) {
+        return query == null ?
+                studentRepository.findAll(pageable) : studentRepository.findAllBy(query, pageable);
     }
 
     public Optional<Student> getById(UUID id) {
         return studentRepository.findById(id);
-    }
-
-    public Collection<Student> getBy(String queryString) {
-        return studentRepository.findAllBy(queryString);
     }
 
     public Student add(StudentRequest studentRequest) {
