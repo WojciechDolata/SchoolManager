@@ -81,7 +81,7 @@ public class Parent {
     @JsonIgnore
     private List<Student> children;
 
-    public static class ParentBuilder {
+    static class ParentBuilder {
         public Parent.ParentBuilder ofRequest(ParentRequest request) {
             firstName = request.firstName;
             lastName = request.lastName;

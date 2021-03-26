@@ -1,5 +1,7 @@
 package ad.school.planner.inner.lesson;
 
+import ad.school.planner.inner.parent.Parent;
+import ad.school.planner.inner.parent.ParentRequest;
 import ad.school.planner.inner.student.Student;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -48,6 +50,9 @@ public class Lesson {
     private LocalDateTime endDate;
 
     @Column
+    private Integer price;
+
+    @Column
     private String description;
 
     @Column
@@ -63,10 +68,14 @@ public class Lesson {
     @JsonIgnore
     private List<Student> students;
 
-    void addStudent(Student student) {
-        if (students == null) {
-            students = new LinkedList<>();
+    static class LessonBuilder {
+        public Lesson.LessonBuilder ofRequest(LessonRequest request) {
+            beginningDate = request.beginningDate;
+            endDate = request.endDate;
+            price = request.price;
+            description = request.description;
+            topic = request.topic;
+            return this;
         }
-        students.add(student);
     }
 }
