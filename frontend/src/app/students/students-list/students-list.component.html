@@ -43,7 +43,7 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let student of students"
+        *ngFor="let student of items"
         routerLink="/student/{{ student.id }}/details"
       >
         <td>{{ student.firstName }}</td>

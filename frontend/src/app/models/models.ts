@@ -74,6 +74,8 @@ export interface Lesson {
   endDate: Date;
   description: string;
   topic: string;
+  subject: Subject;
+  studentIds: string[];
 }
 
 export interface Subject {

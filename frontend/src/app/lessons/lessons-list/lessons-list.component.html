@@ -1,1 +1,59 @@
-<p>lessons-list works!</p>
+<div class="container-fluid">
+  <h1 class="text-center">Wszystkie lekcje</h1>
+  <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="search()">
+    <label class="sr-only" for="searchBox">Wyszukaj: </label>
+    <input
+      type="text"
+      class="form-control mb-2 w-50"
+      id="searchBox"
+      formControlName="query"
+    />
+    <button type="submit" class="btn btn-primary mx-2 mb-2">Wyszukaj</button>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="activeCheckbox"
+        formControlName="active"
+      />
+      <label class="form-check-label" for="activeCheckbox"
+        >tylko aktywni w tym roku</label
+      >
+    </div>
+  </form>
+  <table
+    class="table table-bordered table-hover"
+    aria-label="Wszyscy uczniowie"
+  >
+    <thead class="bg-light">
+      <tr>
+        <th
+          *ngFor="let column of sortableHeaders.getColumns()"
+          (click)="sortChange(column.name)"
+          scope="col"
+          class="w-{{ column.width }}"
+        >
+          <span class="px-3">{{ column.name }}</span>
+          <i
+            *ngIf="column.showIcon()"
+            class="bi {{ column.getIconClass() }}"
+          ></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let lesson of items"
+        routerLink="/lesson/{{ lesson.id }}/details"
+      >
+        <td>{{ lesson.subject ? lesson.subject.name : "" }}</td>
+        <td>{{ lesson.topic }}</td>
+        <td>{{ lesson.beginningDate }}</td>
+        <td>{{ lesson.endDate }}</td>
+        <td>{{ lesson.description }}</td>
+        <td>{{ lesson.studentIds }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <app-add-subject></app-add-subject>
+</div>

@@ -3,16 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EducationPlan, EducationYear, Page, Student } from '../models/models';
 import { environment } from '../../environments/environment';
+import { BasicListService } from '../common/basic-list/basic-list';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StudentService {
+export class StudentService implements BasicListService<Student> {
   private baseUrl = environment.BACKEND_URL + 'student';
 
   constructor(private http: HttpClient) {}
 
-  getAllStudentsBy(
+  getAllBy(
     pageNumber: number,
     query: string,
     sort: string
