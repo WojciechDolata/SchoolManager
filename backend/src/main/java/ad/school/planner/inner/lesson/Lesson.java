@@ -1,8 +1,7 @@
 package ad.school.planner.inner.lesson;
 
-import ad.school.planner.inner.parent.Parent;
-import ad.school.planner.inner.parent.ParentRequest;
 import ad.school.planner.inner.student.Student;
+import ad.school.planner.inner.subject.Subject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,8 +20,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,6 +56,9 @@ public class Lesson {
 
     @Column
     private String topic;
+
+    @ManyToOne
+    private Subject subject;
 
     @ManyToMany(
             fetch = FetchType.LAZY,

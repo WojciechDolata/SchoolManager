@@ -13,5 +13,6 @@ public class LessonRequest {
     public final String description;
     public final Integer price;
     public final String topic;
+    public final UUID subjectId;
     public final List<UUID> studentIds;
 }

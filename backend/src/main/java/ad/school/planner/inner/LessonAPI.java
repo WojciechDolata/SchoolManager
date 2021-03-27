@@ -6,6 +6,8 @@ import ad.school.planner.inner.lesson.LessonService;
 import ad.school.planner.inner.student.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -23,5 +25,9 @@ public class LessonAPI {
 
     public Lesson getById(UUID id) {
         return lessonService.getById(id).orElseThrow();
+    }
+
+    public Page<Lesson> getLessonsBy(String query, Pageable pageable) {
+        return lessonService.getAllBy(query, pageable);
     }
 }

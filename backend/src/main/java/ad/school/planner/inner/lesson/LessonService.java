@@ -2,6 +2,8 @@ package ad.school.planner.inner.lesson;
 
 import ad.school.planner.inner.student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -17,6 +19,10 @@ public class LessonService {
     @Autowired
     public LessonService(LessonRepository lessonRepository) {
         this.lessonRepository = lessonRepository;
+    }
+
+    public Page<Lesson> getAllBy(String query, Pageable pageable) {
+        return lessonRepository.findAll(pageable);
     }
 
     public Collection<Lesson> getAll() {
