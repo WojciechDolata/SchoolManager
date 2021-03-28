@@ -4,6 +4,7 @@ package ad.school.planner.controllers;
 import ad.school.planner.inner.LessonAPI;
 import ad.school.planner.inner.lesson.Lesson;
 import ad.school.planner.inner.lesson.LessonRequest;
+import ad.school.planner.inner.lesson.LessonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +43,7 @@ public class LessonController {
     }
 
     @GetMapping(produces = {"application/json"})
-    public ResponseEntity<Page<Lesson>> getAllLessonsBy(
+    public ResponseEntity<Page<LessonResponse>> getAllLessonsBy(
             @PathParam(value = "query") String query,
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(lessonAPI.getLessonsBy(query, pageable));

@@ -17,7 +17,7 @@
         formControlName="active"
       />
       <label class="form-check-label" for="activeCheckbox"
-        >tylko aktywni w tym roku</label
+        >tylko w tym roku</label
       >
     </div>
   </form>
@@ -29,13 +29,13 @@
       <tr>
         <th
           *ngFor="let column of sortableHeaders.getColumns()"
-          (click)="sortChange(column.name)"
+          (click)="column.property ? sortChange(column.name) : null"
           scope="col"
           class="w-{{ column.width }}"
         >
           <span class="px-3">{{ column.name }}</span>
           <i
-            *ngIf="column.showIcon()"
+            *ngIf="column.showIcon() && column.property !== null"
             class="bi {{ column.getIconClass() }}"
           ></i>
         </th>
@@ -46,14 +46,17 @@
         *ngFor="let lesson of items"
         routerLink="/lesson/{{ lesson.id }}/details"
       >
-        <td>{{ lesson.subject ? lesson.subject.name : "" }}</td>
+        <td>{{ lesson.subjectName }}</td>
         <td>{{ lesson.topic }}</td>
-        <td>{{ lesson.beginningDate }}</td>
-        <td>{{ lesson.endDate }}</td>
+        <td>{{ lesson.beginningDate | date: "dd/MM/yy H:mm" }}</td>
+        <td>{{ lesson.endDate | date: "dd/MM/yy H:mm" }}</td>
         <td>{{ lesson.description }}</td>
-        <td>{{ lesson.studentIds }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let name of lesson.studentNames">{{ name }}</li>
+          </ul>
+        </td>
       </tr>
     </tbody>
   </table>
-  <app-add-subject></app-add-subject>
 </div>

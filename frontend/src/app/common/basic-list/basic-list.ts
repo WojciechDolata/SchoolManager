@@ -35,9 +35,11 @@ export abstract class BasicList<T> {
   }
 
   sortChange(name: string): void {
-    this.sortableHeaders.changeOrder(name);
-    this.resetPaging();
-    this.loadNextPage();
+    if (!this.loading) {
+      this.sortableHeaders.changeOrder(name);
+      this.resetPaging();
+      this.loadNextPage();
+    }
   }
 
   loadNextPage(): void {

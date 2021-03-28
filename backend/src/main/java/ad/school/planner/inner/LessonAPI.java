@@ -2,8 +2,10 @@ package ad.school.planner.inner;
 
 import ad.school.planner.inner.lesson.Lesson;
 import ad.school.planner.inner.lesson.LessonRequest;
+import ad.school.planner.inner.lesson.LessonResponse;
 import ad.school.planner.inner.lesson.LessonService;
 import ad.school.planner.inner.student.StudentService;
+import ad.school.planner.inner.subject.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,17 +19,19 @@ import java.util.UUID;
 public class LessonAPI {
     private final LessonService lessonService;
     private final StudentService studentService;
+    private final SubjectService subjectService;
 
     public Lesson add(LessonRequest lessonRequest) {
         var students = studentService.getByIds(lessonRequest.studentIds);
-        return lessonService.add(lessonRequest, students);
+        var subject = subjectService.getById(lessonRequest.subjectId).orElseThrow();
+        return lessonService.add(lessonRequest, students, subject);
     }
 
     public Lesson getById(UUID id) {
         return lessonService.getById(id).orElseThrow();
     }
 
-    public Page<Lesson> getLessonsBy(String query, Pageable pageable) {
+    public Page<LessonResponse> getLessonsBy(String query, Pageable pageable) {
         return lessonService.getAllBy(query, pageable);
     }
 }

@@ -18,14 +18,14 @@ export class LessonsListComponent extends BasicList<Lesson> implements OnInit {
       new SortableHeaders(
         ['Przedmiot', 'Temat', 'Od', 'Do', 'Opis', 'Uczniowie'],
         [
-          'subject',
+          'subject.name',
           'topic',
           'beginningDate',
           'endDate',
           'description',
-          'studentIds',
+          null,
         ],
-        [10, 15, 20, 10, 30, 15]
+        [15, 20, 10, 10, 25, 20]
       )
     );
   }
