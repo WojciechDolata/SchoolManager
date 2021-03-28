@@ -16,18 +16,22 @@ export class LessonsListComponent extends BasicList<Lesson> implements OnInit {
       formBuilder,
       lessonService,
       new SortableHeaders(
-        ['Przedmiot', 'Temat', 'Od', 'Do', 'Opis', 'Uczniowie'],
-        [
-          'subject.name',
-          'topic',
-          'beginningDate',
-          'endDate',
-          'description',
-          null,
-        ],
+        ['Przedmiot', 'Temat', 'Od', 'Czas trwania', 'Opis', 'Uczniowie'],
+        ['subject.name', 'topic', 'beginningDate', null, 'description', null],
         [15, 20, 10, 10, 25, 20]
       )
     );
+  }
+
+  getLessonLength(lesson: Lesson): number {
+    if (lesson.endDate && lesson.beginningDate) {
+      return (
+        (new Date(lesson.endDate).getTime() -
+          new Date(lesson.beginningDate).getTime()) /
+        (1000 * 60 * 60) // milliseconds * seconds * minutes
+      );
+    }
+    return 0;
   }
 
   ngOnInit(): void {

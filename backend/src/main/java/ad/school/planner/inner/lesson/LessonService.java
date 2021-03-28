@@ -22,7 +22,9 @@ public class LessonService {
     }
 
     public Page<LessonResponse> getAllBy(String query, Pageable pageable) {
-        return lessonRepository.findAll(pageable).map(LessonResponse::ofLesson);
+        var page = query == null ?
+                lessonRepository.findAll(pageable) : lessonRepository.findAllBy(query, pageable);
+        return page.map(LessonResponse::ofLesson);
     }
 
     public Optional<Lesson> getById(UUID id) {

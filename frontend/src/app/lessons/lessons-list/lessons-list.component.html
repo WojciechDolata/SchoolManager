@@ -49,8 +49,8 @@
         <td>{{ lesson.subjectName }}</td>
         <td>{{ lesson.topic }}</td>
         <td>{{ lesson.beginningDate | date: "dd/MM/yy H:mm" }}</td>
-        <td>{{ lesson.endDate | date: "dd/MM/yy H:mm" }}</td>
-        <td>{{ lesson.description }}</td>
+        <td>{{ getLessonLength(lesson) }}</td>
+        <td>{{ lesson.description }}h</td>
         <td>
           <ul>
             <li *ngFor="let name of lesson.studentNames">{{ name }}</li>
