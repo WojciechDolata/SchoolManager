@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class LessonDetailsComponent implements OnInit {
   private lessonId: string;
+  loading = true;
   isEditModeOn = false;
   lesson: Lesson;
   lessonAsForm: FormGroup;
@@ -52,22 +53,26 @@ export class LessonDetailsComponent implements OnInit {
       this.fetchLessonDetailsAndUpdateForm();
     } else {
       this.setupFormAsEmpty();
+      this.loading = false;
     }
   }
 
   private setupFormAsEmpty(): void {
     this.lessonAsForm = this.formBuilder.group({
-      beginningDate: null,
-      beginningHour: null,
-      endHour: null,
-      description: null,
-      topic: null,
+      beginningDate: '',
+      beginningHour: '',
+      endHour: '',
+      description: '',
+      topic: '',
     });
   }
 
   private fetchLessonDetailsAndUpdateForm(): void {
     this.lessonService.getLessonById(this.lessonId).subscribe((lesson) => {
       this.updateForm(lesson);
+      this.newSubject = this.subjects.filter(
+        (s) => s.name === lesson.subjectName
+      )[0];
       this.fetchStudents(lesson);
     });
   }
@@ -119,5 +124,9 @@ export class LessonDetailsComponent implements OnInit {
         this.students.push(student);
       });
     });
+  }
+
+  isSelected(subject: Subject): boolean {
+    return this.newSubject ? this.newSubject.name === subject.name : false;
   }
 }
