@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class LessonDetailsComponent implements OnInit {
   private lessonId: string;
+  loading = true;
   isEditModeOn = false;
   lesson: Lesson;
   lessonAsForm: FormGroup;
@@ -52,22 +53,26 @@ export class LessonDetailsComponent implements OnInit {
       this.fetchLessonDetailsAndUpdateForm();
     } else {
       this.setupFormAsEmpty();
+      this.loading = false;
     }
   }
 
   private setupFormAsEmpty(): void {
     this.lessonAsForm = this.formBuilder.group({
-      beginningDate: null,
-      beginningHour: null,
-      endHour: null,
-      description: null,
-      topic: null,
+      beginningDate: '',
+      beginningHour: '',
+      endHour: '',
+      description: '',
+      topic: '',
     });
   }
 
   private fetchLessonDetailsAndUpdateForm(): void {
     this.lessonService.getLessonById(this.lessonId).subscribe((lesson) => {
       this.updateForm(lesson);
+      this.newSubject = this.subjects.filter(
+        (s) => s.name === lesson.subjectName
+      )[0];
       this.fetchStudents(lesson);
     });
   }
@@ -85,9 +90,10 @@ export class LessonDetailsComponent implements OnInit {
 
   submitLesson(): void {
     const updatedLesson = this.createLessonFromForm();
-    this.updateOrAddLesson(updatedLesson).subscribe((lesson) =>
-      this.updateForm(lesson)
-    );
+    this.updateOrAddLesson(updatedLesson).subscribe((lesson) => {
+        this.updateForm(lesson);
+        this.changeEditMode();
+    });
   }
 
   private createLessonFromForm(): Lesson {
@@ -109,6 +115,10 @@ export class LessonDetailsComponent implements OnInit {
     if (this.isEditModeOn) {
       this.updateForm();
     }
+    this.changeEditMode();
+  }
+
+  private changeEditMode(): void {
     this.isEditModeOn = !this.isEditModeOn;
   }
 
@@ -118,6 +128,11 @@ export class LessonDetailsComponent implements OnInit {
       this.studentService.getStudentById(studentId).subscribe((student) => {
         this.students.push(student);
       });
+      this.loading = false;
     });
+  }
+
+  isSelected(subject: Subject): boolean {
+    return this.newSubject ? this.newSubject.name === subject.name : false;
   }
 }

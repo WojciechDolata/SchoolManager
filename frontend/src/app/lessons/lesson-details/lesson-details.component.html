@@ -3,9 +3,14 @@
     {{ lesson ? "Informacje o lekcji" : "Dodawanie lekcji" }}
   </h1>
   <div class="py-5 row">
+    <mat-spinner
+      *ngIf="loading"
+      style="margin: 20% auto"
+      [color]="'primary'"
+    ></mat-spinner>
     <form
       class="col-md-6"
-      *ngIf="lesson"
+      *ngIf="!loading"
       [formGroup]="lessonAsForm"
       (ngSubmit)="submitLesson()"
     >
@@ -24,16 +29,17 @@
         <div class="form-group col-md-6">
           <label for="subject">Przedmiot</label>
           <select
-            class="form-control"
+            class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
             id="subject"
             [(ngModel)]="newSubject"
+            [disabled]="!isEditModeOn"
             [ngModelOptions]="{ standalone: true }"
             required
           >
             <option
               *ngFor="let subject of subjects"
               [ngValue]="subject"
-              [selected]="subject.name === this.lesson.subjectName"
+              [selected]="isSelected(subject)"
             >
               {{ subject.name }}
             </option>
