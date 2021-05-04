@@ -1,1 +1,107 @@
-<p>lesson-details works!</p>
+<div class="container-fluid">
+  <h1 class="text-center">
+    {{ lesson ? "Informacje o lekcji" : "Dodawanie lekcji" }}
+  </h1>
+  <div class="py-5 row">
+    <form
+      class="col-md-6"
+      *ngIf="lesson"
+      [formGroup]="lessonAsForm"
+      (ngSubmit)="submitLesson()"
+    >
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="topic">Temat</label>
+          <input
+            type="text"
+            class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+            id="topic"
+            formControlName="topic"
+            [attr.disabled]="isEditModeOn ? null : ''"
+            required
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="subject">Przedmiot</label>
+          <select
+            class="form-control"
+            id="subject"
+            [(ngModel)]="newSubject"
+            [ngModelOptions]="{ standalone: true }"
+            required
+          >
+            <option
+              *ngFor="let subject of subjects"
+              [ngValue]="subject"
+              [selected]="subject.name === this.lesson.subjectName"
+            >
+              {{ subject.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Opis</label>
+        <input
+          type="text"
+          class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+          id="description"
+          formControlName="description"
+          [attr.disabled]="isEditModeOn ? null : ''"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="beginningDate">Dzień</label>
+          <input
+            type="date"
+            name="beginningDate"
+            max="2100-12-31"
+            id="beginningDate"
+            min="1900-01-01"
+            formControlName="beginningDate"
+            class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+            [readOnly]="!isEditModeOn"
+          />
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="beginningHour">Od</label>
+          <input
+            type="time"
+            name="date"
+            id="beginningHour"
+            formControlName="beginningHour"
+            class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+            [readOnly]="!isEditModeOn"
+          />
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="endHour">Do</label>
+          <input
+            type="time"
+            name="date"
+            id="endHour"
+            formControlName="endHour"
+            class="form-control{{ isEditModeOn ? '' : '-plaintext' }}"
+            [readOnly]="!isEditModeOn"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="w-25">
+          <button class="btn btn-primary" type="button" (click)="editSwitch()">
+            {{ isEditModeOn ? "Wyłącz" : "Włącz" }} edycję
+          </button>
+        </div>
+        <div class="w-25" *ngIf="isEditModeOn">
+          <button class="btn btn-success" type="submit">Zapisz</button>
+        </div>
+      </div>
+    </form>
+    <div class="col-md-6">TODO tabela studentow</div>
+  </div>
+</div>

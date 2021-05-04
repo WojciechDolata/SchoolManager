@@ -27,8 +27,16 @@ public class LessonService {
         return page.map(LessonResponse::ofLesson);
     }
 
-    public Optional<Lesson> getById(UUID id) {
-        return lessonRepository.findById(id);
+    public Optional<LessonResponse> getById(UUID id) {
+        return lessonRepository.findById(id)
+                .map(LessonResponse::ofLesson);
+    }
+
+    public Lesson update(UUID id, LessonRequest lessonRequest, Subject subject) {
+        var lesson = lessonRepository.findById(id).orElseThrow();
+        lesson.update(lessonRequest);
+        lesson.setSubject(subject);
+        return lessonRepository.save(lesson);
     }
 
     public Lesson add(LessonRequest lessonRequest, List<Student> students, Subject subject) {

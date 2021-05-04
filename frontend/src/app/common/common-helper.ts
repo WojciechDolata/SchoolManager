@@ -1,10 +1,18 @@
 import { formatDate } from '@angular/common';
 
-export function convertDate(date: Date, canBeNull = false): string {
+export function convertDateToFormat(
+  date: Date,
+  format = 'yyyy-MM-dd',
+  canBeNull = false
+): string {
   if (canBeNull && !date) {
     return '';
   }
-  return formatDate(date, 'yyyy-MM-dd', 'en');
+  return formatDate(date, format, 'en');
+}
+
+export function convertDate(date: Date, canBeNull = false): string {
+  return convertDateToFormat(date, 'yyyy-MM-dd', canBeNull);
 }
 
 export function isNumberKey(evt): boolean {

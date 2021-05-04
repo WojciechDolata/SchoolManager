@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,8 +38,14 @@ public class LessonController {
         return ResponseEntity.ok(lessonAPI.add(request));
     }
 
+    @PutMapping(value = "/{id}", produces = {"application/json"})
+    public ResponseEntity<Lesson> update(@PathVariable String id,
+                                         @RequestBody LessonRequest request) {
+        return ResponseEntity.ok(lessonAPI.update(UUID.fromString(id), request));
+    }
+
     @GetMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<Lesson> getById(@PathVariable String id) {
+    public ResponseEntity<LessonResponse> getById(@PathVariable String id) {
         return ResponseEntity.ok(lessonAPI.getById(UUID.fromString(id)));
     }
 

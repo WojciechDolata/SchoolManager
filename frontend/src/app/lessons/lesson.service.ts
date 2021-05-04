@@ -8,7 +8,7 @@ import { BasicListService } from '../common/basic-list/basic-list';
 @Injectable({
   providedIn: 'root',
 })
-export class LessonsService implements BasicListService<Lesson> {
+export class LessonService implements BasicListService<Lesson> {
   private baseUrl = environment.BACKEND_URL + 'lesson';
 
   constructor(private http: HttpClient) {}
@@ -33,5 +33,9 @@ export class LessonsService implements BasicListService<Lesson> {
 
   addLesson(lesson: Lesson): Observable<Lesson> {
     return this.http.post<Lesson>(this.baseUrl, lesson);
+  }
+
+  updateLesson(id: string, lesson: Lesson): Observable<Lesson> {
+    return this.http.put<Lesson>(this.baseUrl + '/' + id, lesson);
   }
 }

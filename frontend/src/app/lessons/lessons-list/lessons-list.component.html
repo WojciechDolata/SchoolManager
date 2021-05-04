@@ -42,10 +42,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        *ngFor="let lesson of items"
-        routerLink="/lesson/{{ lesson.id }}/details"
-      >
+      <tr *ngFor="let lesson of items" (click)="goTo(lesson.id)">
         <td>{{ lesson.subjectName }}</td>
         <td>{{ lesson.topic }}</td>
         <td>{{ lesson.beginningDate | date: "dd/MM/yy H:mm" }}</td>

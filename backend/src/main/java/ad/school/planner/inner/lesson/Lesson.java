@@ -80,4 +80,12 @@ public class Lesson {
             return this;
         }
     }
+
+    protected void update(LessonRequest lessonRequest) {
+        beginningDate = lessonRequest.beginningDate;
+        endDate = lessonRequest.endDate;
+        topic = lessonRequest.topic;
+        price = lessonRequest.price;
+        description = lessonRequest.description;
+    }
 }

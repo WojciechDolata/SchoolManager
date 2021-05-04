@@ -32,10 +32,10 @@ export class StudentDetailsComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.studentService
       .getStudentById(this.id)
-      .subscribe((student) => this.updateStudentProperties(student));
+      .subscribe((student) => this.updateForm(student));
   }
 
-  updateStudentProperties(student: Student): void {
+  updateForm(student: Student): void {
     this.student = student;
     this.studentAsForm = this.formBuilder.group({
       nick: student.nick,
@@ -59,7 +59,7 @@ export class StudentDetailsComponent implements OnInit {
       this.studentService
         .updateStudent(this.id, updatedStudent)
         .subscribe((student) => {
-          this.updateStudentProperties(student);
+          this.updateForm(student);
           this.isEditModeOn = false;
           this.displayValidation = false;
         });
@@ -70,7 +70,7 @@ export class StudentDetailsComponent implements OnInit {
 
   editSwitch(): void {
     if (this.isEditModeOn) {
-      this.updateStudentProperties(this.student);
+      this.updateForm(this.student);
     }
     this.isEditModeOn = !this.isEditModeOn;
   }
