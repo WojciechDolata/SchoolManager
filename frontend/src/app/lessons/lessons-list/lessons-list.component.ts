@@ -4,7 +4,8 @@ import { LessonService } from '../lesson.service';
 import { SortableHeaders } from '../../common/sortable-headers';
 import { FormBuilder } from '@angular/forms';
 import { BasicList } from '../../common/basic-list/basic-list';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { getTimeDiff } from '../lesson-helper';
 
 @Component({
   selector: 'app-lessons-list',
@@ -34,11 +35,7 @@ export class LessonsListComponent extends BasicList<Lesson> implements OnInit {
 
   getLessonLength(lesson: Lesson): number {
     if (lesson.endDate && lesson.beginningDate) {
-      return (
-        (new Date(lesson.endDate).getTime() -
-          new Date(lesson.beginningDate).getTime()) /
-        (1000 * 60 * 60) // milliseconds * seconds * minutes
-      );
+      return getTimeDiff(lesson.endDate, lesson.beginningDate);
     }
     return 0;
   }
