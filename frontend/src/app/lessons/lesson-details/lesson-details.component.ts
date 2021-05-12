@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Lesson, Subject } from '../../models/models';
+import { Lesson, Student, Subject } from '../../models/models';
 import { LessonService } from '../lesson.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
