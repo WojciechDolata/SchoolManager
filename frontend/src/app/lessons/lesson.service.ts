@@ -38,4 +38,11 @@ export class LessonService implements BasicListService<Lesson> {
   updateLesson(id: string, lesson: Lesson): Observable<Lesson> {
     return this.http.put<Lesson>(this.baseUrl + '/' + id, lesson);
   }
+
+  addStudentToLesson(lessonId: string, studentId: string): Observable<Lesson> {
+    return this.http.put<Lesson>(
+      this.baseUrl + '/' + lessonId + '/addStudent',
+      studentId
+    );
+  }
 }

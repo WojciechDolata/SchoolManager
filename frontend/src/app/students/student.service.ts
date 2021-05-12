@@ -16,7 +16,7 @@ export class StudentService implements BasicListService<Student> {
   getAllBy(
     pageNumber: number,
     query: string,
-    sort: string
+    sort: string = null
   ): Observable<Page<Student>> {
     return this.http.get<Page<Student>>(
       this.baseUrl +

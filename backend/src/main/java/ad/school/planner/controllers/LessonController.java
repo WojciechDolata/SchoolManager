@@ -38,6 +38,16 @@ public class LessonController {
         return ResponseEntity.ok(lessonAPI.add(request));
     }
 
+    @PutMapping(value = "{lessonId}/addStudent", produces = {"application/json"})
+    public ResponseEntity<Lesson> addStudentToLesson(@PathVariable String lessonId,
+                                                     @RequestBody String studentId) {
+        var updatedLesson =  lessonAPI.addStudentToLesson(
+                UUID.fromString(lessonId),
+                UUID.fromString(studentId)
+        );
+        return ResponseEntity.ok(updatedLesson);
+    }
+
     @PutMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<Lesson> update(@PathVariable String id,
                                          @RequestBody LessonRequest request) {

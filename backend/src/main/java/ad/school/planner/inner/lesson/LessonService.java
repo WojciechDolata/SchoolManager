@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -39,13 +39,19 @@ public class LessonService {
         return lessonRepository.save(lesson);
     }
 
-    public Lesson add(LessonRequest lessonRequest, List<Student> students, Subject subject) {
-        return this.lessonRepository.save(
+    public Lesson add(LessonRequest lessonRequest, Set<Student> students, Subject subject) {
+        return lessonRepository.save(
                 Lesson.builder()
                     .ofRequest(lessonRequest)
                     .students(students)
                     .subject(subject)
                     .build()
         );
+    }
+
+    public Lesson addStudentIfNotExists(UUID lessonId, Student student) {
+        var lesson = this.lessonRepository.findById(lessonId).orElseThrow();
+        lesson.addStudent(student);
+        return lessonRepository.save(lesson);
     }
 }

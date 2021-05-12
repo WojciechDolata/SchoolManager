@@ -3,7 +3,7 @@ package ad.school.planner.inner.lesson;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -14,5 +14,5 @@ public class LessonRequest {
     public final Integer price;
     public final String topic;
     public final UUID subjectId;
-    public final List<UUID> studentIds;
+    public final Set<UUID> studentIds;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Lesson, Student, Subject } from '../../models/models';
+import { Lesson, Subject } from '../../models/models';
 import { LessonService } from '../lesson.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -20,7 +20,6 @@ export class LessonDetailsComponent implements OnInit {
   isEditModeOn = false;
   lesson: Lesson;
   lessonAsForm: FormGroup;
-  students: Student[] = [];
   subjects: Subject[];
   newSubject: Subject = {} as Subject;
 
@@ -73,7 +72,7 @@ export class LessonDetailsComponent implements OnInit {
       this.newSubject = this.subjects.filter(
         (s) => s.name === lesson.subjectName
       )[0];
-      this.fetchStudents(lesson);
+      this.loading = false;
     });
   }
 
@@ -91,8 +90,8 @@ export class LessonDetailsComponent implements OnInit {
   submitLesson(): void {
     const updatedLesson = this.createLessonFromForm();
     this.updateOrAddLesson(updatedLesson).subscribe((lesson) => {
-        this.updateForm(lesson);
-        this.changeEditMode();
+      this.updateForm(lesson);
+      this.changeEditMode();
     });
   }
 
@@ -120,16 +119,6 @@ export class LessonDetailsComponent implements OnInit {
 
   private changeEditMode(): void {
     this.isEditModeOn = !this.isEditModeOn;
-  }
-
-  private fetchStudents(lesson: Lesson): void {
-    this.students = [];
-    lesson.studentIds.forEach((studentId) => {
-      this.studentService.getStudentById(studentId).subscribe((student) => {
-        this.students.push(student);
-      });
-      this.loading = false;
-    });
   }
 
   isSelected(subject: Subject): boolean {

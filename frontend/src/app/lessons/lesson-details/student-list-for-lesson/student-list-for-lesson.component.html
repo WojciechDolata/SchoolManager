@@ -1,0 +1,27 @@
+<h4>Uczniowie obecni na lekcji</h4>
+<table
+  class="table table-bordered table-hover w-100"
+  aria-label="Uczniowie na lekcji"
+>
+  <thead class="bg-light">
+    <tr>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Numer telefonu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let student of students"
+      routerLink="/student/{{ student.id }}/details"
+    >
+      <td>{{ student.firstName }}</td>
+      <td>{{ student.lastName }}</td>
+      <td>{{ student.phoneNumber }}</td>
+    </tr>
+  </tbody>
+</table>
+<app-add-student-to-lesson
+  [lessonId]="lessonId"
+  (successfulAddition)="reload()"
+></app-add-student-to-lesson>

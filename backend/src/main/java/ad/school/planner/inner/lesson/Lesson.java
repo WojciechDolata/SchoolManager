@@ -22,7 +22,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -68,7 +68,7 @@ public class Lesson {
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     @JsonIgnore
-    private List<Student> students;
+    private Set<Student> students;
 
     static class LessonBuilder {
         public Lesson.LessonBuilder ofRequest(LessonRequest request) {
@@ -87,5 +87,13 @@ public class Lesson {
         topic = lessonRequest.topic;
         price = lessonRequest.price;
         description = lessonRequest.description;
+    }
+
+    protected void addStudent(Student student) {
+        students.add(student);
+    }
+
+    protected boolean hasStudent(Student student) {
+        return students.contains(student);
     }
 }

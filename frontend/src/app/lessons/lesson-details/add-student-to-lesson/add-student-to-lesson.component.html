@@ -1,0 +1,91 @@
+<div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#studentModal"
+  >
+    Dodaj ucznia do lekcji
+  </button>
+  <div
+    class="modal fade"
+    id="studentModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="studentModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content w-75">
+        <div class="modal-header">
+          <h5 class="modal-title" id="schoolModalTitle">
+            Dodaj ucznia do lekcji
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input
+            class="w-80"
+            type="text"
+            [(ngModel)]="studentSearch"
+            (ngModelChange)="findMatchingStudents()"
+          />
+          <div *ngIf="studentsMatching">
+            <h4>Pasujący uczniowie</h4>
+            <table
+              class="table table-bordered table-hover w-100"
+              aria-label="Pasujący uczniowie"
+            >
+              <thead class="bg-light">
+                <tr>
+                  <td>Imię</td>
+                  <td>Nazwisko</td>
+                  <td>Email</td>
+                  <td>Numer telefonu</td>
+                  <td>Miasto</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let student of studentsMatching"
+                  (click)="selectedStudentId = student.id"
+                  [ngClass]="
+                    student.id === selectedStudentId
+                      ? 'bg-light font-weight-bold'
+                      : ''
+                  "
+                >
+                  <td>{{ student.firstName }}</td>
+                  <td>{{ student.lastName }}</td>
+                  <td>{{ student.email }}</td>
+                  <td>{{ student.phoneNumber }}</td>
+                  <td>{{ student.city }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            #closeButton
+          >
+            Zamknij
+          </button>
+          <button class="btn btn-primary" (click)="addStudentToLesson()">
+            Dodaj ucznia
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

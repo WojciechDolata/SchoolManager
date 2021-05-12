@@ -108,6 +108,11 @@
         </div>
       </div>
     </form>
-    <div class="col-md-6">TODO tabela studentow</div>
+    <div class="col-md-6">
+      <app-student-list-for-lesson
+        [lessonId]="lesson.id"
+        *ngIf="!loading"
+      ></app-student-list-for-lesson>
+    </div>
   </div>
 </div>

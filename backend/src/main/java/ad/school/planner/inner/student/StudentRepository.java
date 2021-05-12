@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 interface StudentRepository extends CrudRepository<Student, UUID> {
@@ -30,6 +30,6 @@ interface StudentRepository extends CrudRepository<Student, UUID> {
 
     Page<Student> findAll(Pageable pageable);
 
-    List<Student> findByIdIn(List<UUID> ids);
+    Set<Student> findByIdIn(Set<UUID> ids);
 
 }

@@ -15,6 +15,8 @@ import { EducationYearsComponent } from './students/education-years/education-ye
 import { AddSchoolComponent } from './modals/add-school/add-school.component';
 import { EducationPlansComponent } from './students/education-years/education-plans/education-plans.component';
 import { AddSubjectComponent } from './modals/add-subject/add-subject.component';
+import { StudentListForLessonComponent } from './lessons/lesson-details/student-list-for-lesson/student-list-for-lesson.component';
+import { AddStudentToLessonComponent } from './lessons/lesson-details/add-student-to-lesson/add-student-to-lesson.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { AddSubjectComponent } from './modals/add-subject/add-subject.component'
     AddSchoolComponent,
     EducationPlansComponent,
     AddSubjectComponent,
+    StudentListForLessonComponent,
+    AddStudentToLessonComponent,
   ],
   imports: [
     BrowserModule,

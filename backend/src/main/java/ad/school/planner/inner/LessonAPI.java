@@ -27,6 +27,11 @@ public class LessonAPI {
         return lessonService.add(lessonRequest, students, subject);
     }
 
+    public Lesson addStudentToLesson(UUID lessonId, UUID studentId) {
+        var student = studentService.getById(studentId).orElseThrow();
+        return lessonService.addStudentIfNotExists(lessonId, student);
+    }
+
     public Lesson update(UUID id, LessonRequest lessonRequest) {
         var subject = this.subjectService.getById(lessonRequest.subjectId).orElseThrow();
         return lessonService.update(id, lessonRequest, subject);
