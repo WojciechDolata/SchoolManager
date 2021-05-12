@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @CrossOrigin
@@ -49,6 +50,11 @@ public class StudentController {
     @GetMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<Student> getStudent(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(studentAPI.getStudentById(id));
+    }
+
+    @GetMapping(value = "/forLesson/{id}", produces = {"application/json"})
+    public ResponseEntity<Set<Student>> getStudentsByLessonId(@PathVariable UUID id) {
+        return ResponseEntity.ok(studentAPI.getStudentsByLessonId(id));
     }
 
     @PostMapping(produces = {"application/json"})

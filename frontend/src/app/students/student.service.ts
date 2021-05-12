@@ -27,6 +27,10 @@ export class StudentService implements BasicListService<Student> {
     );
   }
 
+  getStudentsForLesson(lessonId: string): Observable<Student[]> {
+    return this.http.get<Student[]>(this.baseUrl + '/forLesson/' + lessonId);
+  }
+
   getStudentById(id: string): Observable<Student> {
     return this.http.get<Student>(this.baseUrl + '/' + id);
   }

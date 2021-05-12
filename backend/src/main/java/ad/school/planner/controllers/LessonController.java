@@ -49,14 +49,14 @@ public class LessonController {
     }
 
     @PutMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<Lesson> update(@PathVariable String id,
+    public ResponseEntity<Lesson> update(@PathVariable UUID id,
                                          @RequestBody LessonRequest request) {
-        return ResponseEntity.ok(lessonAPI.update(UUID.fromString(id), request));
+        return ResponseEntity.ok(lessonAPI.update(id, request));
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<LessonResponse> getById(@PathVariable String id) {
-        return ResponseEntity.ok(lessonAPI.getById(UUID.fromString(id)));
+    public ResponseEntity<LessonResponse> getById(@PathVariable UUID id) {
+        return ResponseEntity.ok(lessonAPI.getById(id));
     }
 
     @GetMapping(produces = {"application/json"})

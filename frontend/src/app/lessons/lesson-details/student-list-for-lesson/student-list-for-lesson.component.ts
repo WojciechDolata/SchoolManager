@@ -12,7 +12,6 @@ export class StudentListForLessonComponent implements OnInit {
   @Input() lessonId: string;
   students: Student[];
   loading = false;
-  newStudent = {} as Student;
 
   constructor(
     private studentService: StudentService,
@@ -27,17 +26,13 @@ export class StudentListForLessonComponent implements OnInit {
 
   reload(): void {
     this.lessonService.getLessonById(this.lessonId).subscribe((lesson) => {
-      // TODO: Fetch students for lesson endpoint
-      this.fetchStudents(lesson);
+      this.fetchStudents(lesson.id);
     });
   }
 
-  private fetchStudents(lesson): void {
-    this.students = [];
-    lesson.studentIds.forEach((studentId) => {
-      this.studentService.getStudentById(studentId).subscribe((student) => {
-        this.students.push(student);
-      });
+  private fetchStudents(lessonId: string): void {
+    this.studentService.getStudentsForLesson(lessonId).subscribe((students) => {
+      this.students = students;
       this.loading = false;
     });
   }

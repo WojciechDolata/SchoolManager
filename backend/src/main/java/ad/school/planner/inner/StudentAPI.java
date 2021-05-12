@@ -6,6 +6,7 @@ import ad.school.planner.inner.education_plan.EducationPlanService;
 import ad.school.planner.inner.education_year.EducationYear;
 import ad.school.planner.inner.education_year.EducationYearRequest;
 import ad.school.planner.inner.education_year.EducationYearService;
+import ad.school.planner.inner.lesson.LessonService;
 import ad.school.planner.inner.parent.Parent;
 import ad.school.planner.inner.parent.ParentRequest;
 import ad.school.planner.inner.parent.ParentService;
@@ -21,12 +22,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StudentAPI {
     private final StudentService studentService;
+    private final LessonService lessonService;
     private final SchoolService schoolService;
     private final SubjectService subjectService;
     private final EducationYearService educationYearService;
@@ -67,6 +71,13 @@ public class StudentAPI {
 
     public List<EducationPlan> getEducationPlansForYear(UUID educationYearId) {
         return this.educationPlanService.getAllByYearId(educationYearId);
+    }
+
+    public Set<Student> getStudentsByLessonId(UUID id) {
+        var lesson = lessonService.getById(id).orElseThrow();
+        return lesson.getStudentIds().stream()
+                .map(studentId -> studentService.getById(studentId).orElseThrow())
+                .collect(Collectors.toSet());
     }
 
     public Parent addParent(ParentRequest request) {
