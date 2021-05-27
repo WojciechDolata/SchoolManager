@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { School, Subject } from '../models/models';
+import { AuthHttpClient } from './auth-http-client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { School, Subject } from '../models/models';
 export class CommonService {
   private baseUrl = environment.BACKEND_URL + 'common';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: AuthHttpClient) {}
 
   addSchool(school: School): Observable<School> {
     return this.http.post<School>(this.baseUrl + '/school', school);

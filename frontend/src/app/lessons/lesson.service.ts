@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Lesson, Page } from '../models/models';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { BasicListService } from '../common/basic-list/basic-list';
+import { AuthHttpClient } from '../common/auth-http-client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { BasicListService } from '../common/basic-list/basic-list';
 export class LessonService implements BasicListService<Lesson> {
   private baseUrl = environment.BACKEND_URL + 'lesson';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: AuthHttpClient) {}
 
   getAllBy(
     pageNumber: number,
