@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "format": "prettier --write . && ng lint --fix",
-    "electron-build-win": "ng build --configuration=production --base-href ./ && electron-packager . --no-prune --ignore=/e2e --ignore=/src --overwrite  --platform=win64 --arch=x64"
+    "electron-build-win": "ng build --configuration=production --base-href ./ && electron-packager . --no-prune --ignore=/e2e --ignore=/src --overwrite  --platform=win32 --arch=x64"
   },
   "private": true,
   "dependencies": {

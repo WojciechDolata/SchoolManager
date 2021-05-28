@@ -39,11 +39,10 @@ public class LessonService {
         return lessonRepository.save(lesson);
     }
 
-    public Lesson add(LessonRequest lessonRequest, Set<Student> students, Subject subject) {
+    public Lesson add(LessonRequest lessonRequest, Subject subject) {
         return lessonRepository.save(
                 Lesson.builder()
                     .ofRequest(lessonRequest)
-                    .students(students)
                     .subject(subject)
                     .build()
         );

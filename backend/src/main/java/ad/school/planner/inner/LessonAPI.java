@@ -22,9 +22,8 @@ public class LessonAPI {
     private final SubjectService subjectService;
 
     public Lesson add(LessonRequest lessonRequest) {
-        var students = studentService.getByIds(lessonRequest.studentIds);
         var subject = subjectService.getById(lessonRequest.subjectId).orElseThrow();
-        return lessonService.add(lessonRequest, students, subject);
+        return lessonService.add(lessonRequest, subject);
     }
 
     public Lesson addStudentToLesson(UUID lessonId, UUID studentId) {

@@ -1,13 +1,18 @@
 import { EducationYear, Lesson } from '../models/models';
 
+function getTimeZoneFix(): number {
+  return new Date().getTimezoneOffset() / -60;
+}
+
 export function castFormToLesson(form): Lesson {
   const lesson = form.value as Lesson;
   const beginningDate = new Date(form.value.beginningDate);
-  const endDate = new Date(beginningDate.getMilliseconds());
+  const endDate = new Date(form.value.beginningDate);
   const beginningHour = new Hour(form.value.beginningHour);
   const endHour = new Hour(form.value.endHour);
-  beginningDate.setHours(beginningHour.getHours(), beginningHour.getMinutes());
-  endDate.setHours(endHour.getHours(), endHour.getMinutes());
+  const timezoneFix = getTimeZoneFix();
+  beginningDate.setHours(beginningHour.getHours() + timezoneFix, beginningHour.getMinutes());
+  endDate.setHours(endHour.getHours() + timezoneFix, endHour.getMinutes());
   lesson.beginningDate = beginningDate;
   lesson.endDate = endDate;
   return lesson;

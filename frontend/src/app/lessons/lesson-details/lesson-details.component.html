@@ -111,7 +111,7 @@
     <div class="col-md-6">
       <app-student-list-for-lesson
         [lessonId]="lesson.id"
-        *ngIf="!loading"
+        *ngIf="!loading && lesson"
       ></app-student-list-for-lesson>
     </div>
   </div>

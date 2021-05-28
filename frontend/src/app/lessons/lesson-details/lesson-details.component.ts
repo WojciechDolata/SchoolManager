@@ -78,6 +78,7 @@ export class LessonDetailsComponent implements OnInit {
 
   private updateForm(lesson: Lesson = this.lesson): void {
     this.lesson = lesson;
+    this.lessonId = lesson.id;
     this.lessonAsForm = this.formBuilder.group({
       beginningDate: convertDate(lesson.beginningDate),
       beginningHour: convertDateToFormat(lesson.beginningDate, 'HH:mm'),
